@@ -50,6 +50,7 @@ const App = () => {
   };
 
   return (
+    <>
     <NavigationContainer>
       <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -73,6 +74,7 @@ const App = () => {
         }/>
       </Tab.Navigator>
     </NavigationContainer>
+    </>
   );
 };
 

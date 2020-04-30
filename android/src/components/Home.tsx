@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
+import Player, { TrackStatus} from './playerStuff';
+
 
 //represents the Home screen of the app
 const Home = ({ navigation }) =>{
@@ -14,6 +16,10 @@ const Home = ({ navigation }) =>{
             onPress ={()=> navigation.push('Search', {name: 'hello from home page'})}  
             />
         </View>
+       
+        // <Player />
+        
+        
     )
 }
 

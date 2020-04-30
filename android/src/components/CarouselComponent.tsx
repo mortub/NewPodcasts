@@ -22,7 +22,7 @@ const CarouselComponent = ({results}) => {
 
     //TODO: shows view of all the episodes: the podcast
   const pressOnAPodcast = async () => {
-    return <TrackPlayerComponent />
+   
   }
 
     const _renderItem = ({item,index})=>{
@@ -56,7 +56,9 @@ const CarouselComponent = ({results}) => {
                   itemWidth={250}
                   renderItem={_renderItem}
                   onSnapToItem = { index => setActiveIndex(index) } />
+                
             </View>
+            <TrackPlayerComponent />
           </SafeAreaView>
         );
 }
