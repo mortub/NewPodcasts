@@ -9,4 +9,7 @@ class RootStore {
     }
 };
 
-export default PlayerStore;
+//creating a new store
+export const rootStore = new RootStore();
+
+export default RootStore;

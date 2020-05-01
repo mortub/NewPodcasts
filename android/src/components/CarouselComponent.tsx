@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, ImageBackground, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 //components
-import TrackPlayerComponent from './TrackPlayerComponent';
+
 
  
 //component for showing different podcasts. 
@@ -20,7 +20,7 @@ const CarouselComponent = ({results}) => {
        setCarouselItems(toShow);
       }, results);
 
-    //TODO: shows view of all the episodes: the podcast
+    //TODO: shows view of all the episodes: the podcast: probly need navigation
   const pressOnAPodcast = async () => {
    
   }
@@ -58,7 +58,6 @@ const CarouselComponent = ({results}) => {
                   onSnapToItem = { index => setActiveIndex(index) } />
                 
             </View>
-            <TrackPlayerComponent />
           </SafeAreaView>
         );
 }
