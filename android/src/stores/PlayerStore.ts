@@ -43,8 +43,6 @@ class PlayerStore {
     @action
     public turnIsPlaying(){
         TrackPlayer.addEventListener('playback-state',async (state) =>{
-            // this.getDuration();
-            // this.getPosition();
             
             if(state.state == STATE_PLAYING ){
                 this.isPlaying = true;
@@ -65,6 +63,11 @@ class PlayerStore {
     public async getPosition(){
         return await TrackPlayer.getPosition()
     
+    };
+
+    @action
+    public async seekTo(seconds){
+       return await TrackPlayer.seekTo(seconds);
     };
 
 

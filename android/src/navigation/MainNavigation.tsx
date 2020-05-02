@@ -8,6 +8,7 @@ import Subscriptors from '../components/Subscriptors';
 import MyList from '../components/MyList';
 import CarouselComponent from '../components/CarouselComponent';
 import TrackPlayerComponent from '../components/TrackPlayerComponent';
+import EpisodesView from '../components/EpisodesView';
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -22,16 +23,14 @@ const MainNavigation = () => {
    const MyListStack = createStackNavigator();
 
     const HomeStackScreen = () => {
-        return (
-            <>
-                <HomeStack.Navigator>
-                    <HomeStack.Screen name="Home" component={Home} />
-                    <HomeStack.Screen name="MyList" component={MyList} options={{ title: 'My List' }} />
-                    <HomeStack.Screen name="Search" component={SearchResults} options={{ title: 'Search Podcasts' }} />
-                </HomeStack.Navigator>
-                <TrackPlayerComponent />
-            </>
-        )
+      return (
+        <HomeStack.Navigator>
+          <HomeStack.Screen name="Home" component={Home} />
+          <HomeStack.Screen name="MyList" component={MyList} options={{ title: 'My List' }} />
+          <HomeStack.Screen name="Search" component={SearchResults} options={{ title: 'Search Podcasts' }} />
+          <HomeStack.Screen name="EpisodesView" component={EpisodesView} options={{ title: 'Episodes' }} />
+        </HomeStack.Navigator>
+      )
     };
   const SubStackScreen = () => {
     return (
@@ -52,12 +51,22 @@ const MainNavigation = () => {
   };
 
     return (
+      <>
+      
         <NavigationContainer>
+         
+        
         <Tab.Navigator
+        tabBarOptions= {{
+          showLabel:false,
+          activeTintColor: 'blue',
+          inactiveTintColor: 'grey',
+          
+        }}
         screenOptions={({ route }) => ({
             tabBarIcon: () => {
               if(route.name === 'Home'){
-                return <Icon name="home" size={30} />;
+                return <Icon name="home" size={30}  />;
               }
               if(route.name === 'Subscriptors'){
                 return <Icon name="hearto" size={30} />;
@@ -66,6 +75,7 @@ const MainNavigation = () => {
                 return <Icon name="menu-fold" size={30}  />;
               }
             },
+           
           })}
          >          
         
@@ -74,10 +84,14 @@ const MainNavigation = () => {
           <Tab.Screen name='MyList' component={MyListStackScreen} options={()=>({
            title:'My List'})
           }/>
-        </Tab.Navigator>
-        
-        
+        </Tab.Navigator>  
+        <View style={{position: 'absolute',
+  bottom:60}}>
+          <TrackPlayerComponent /> 
+          </View>
       </NavigationContainer>
+      
+      </>
     )
 };
 

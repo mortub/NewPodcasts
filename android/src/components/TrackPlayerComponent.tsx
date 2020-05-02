@@ -13,40 +13,49 @@ import PlayerSlider from '../components/PlayerSlider';
 
 
 //a track player
-const TrackPlayerComponent = ()=>{ 
+const TrackPlayerComponent = () => {
   //using the global player
   const { playerStore } = useRootStore();
 
-  const [duration, setDuration ] = useState(0);
-  const [position, setPosition ] = useState(0); 
-  
+  const [duration, setDuration] = useState(0);
+  const [position, setPosition] = useState(0);
+
   playerStore.getDuration().then(
-        duration=>{
-          setDuration(duration)                 
-        }       
-      )
+    (duration) => {
+      setDuration(duration)
+    }
+  );
+  playerStore.getPosition().then(
+    (position) => {
+      setPosition(position)
+    }
+  );
 
+  //the icon that needs to be shown: play/pause
+  var showIcon = playerStore.isPlaying ?
+  (
+    <TouchableOpacity onPress={() =>{
+      playerStore.pause();
       playerStore.getPosition().then(
-        position=>{setPosition(position)}
-      )      
-
-        return(   
-           
-          <View style={Styles.navBarLeftButton}>
-            {playerStore.isPlaying?
-    (
-            <TouchableOpacity onPress={() => playerStore.pause()}>
-              <Icon name='pausecircle' size={30} />
-            </TouchableOpacity>
-    ) : (
-            <TouchableOpacity onPress={() => playerStore.play()}>
-              <Icon name='caretright' size={30} />
-            </TouchableOpacity>
-    )
-    }     
-    <PlayerSlider playerStore={playerStore} />       
-             </View>
-        );      
+        (position) => {
+          setPosition(position)
+        }
+      );
+    } }>
+      <Icon name='pausecircle' size={30} />
+    </TouchableOpacity>
+  ) : (
+    <TouchableOpacity onPress={() => playerStore.play()}>
+      <Icon name='caretright' size={30} />
+    </TouchableOpacity>
+  )
+  return (
+    <View style={Styles.navBarLeftButton}>
+      {showIcon}
+      <PlayerSlider position={position} duration={duration} />       
+     
+    </View>
+  );
 };
 
 export default observer(TrackPlayerComponent);

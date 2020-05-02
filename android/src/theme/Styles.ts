@@ -6,6 +6,9 @@
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
+    },
+    sliderWidth:{
+      width: '110%'
     }
   };
 

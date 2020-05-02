@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, ImageBackground, TouchableOpacity} from 'react-native';
+import * as rssParser from 'react-native-rss-parser';
 import Carousel from 'react-native-snap-carousel';
 //components
+import EpisodesView from '../components/EpisodesView';
 
-
- 
 //component for showing different podcasts. 
 //receives an array of objects that represent a podcast
-const CarouselComponent = ({results}) => {
+const CarouselComponent = ({results, pressOnAPodcast}) => {
     var toShow = results.map(res => {
-        return {image :res.image , name: res.name, url: res.url}
+        return {image :res.image , name: res.name, url: res.url, id:res.id}
     });
+
     const [carouselItems, setCarouselItems] = useState(toShow);
-    const [activeIndex, setActiveIndex] = useState(0);
+
     useEffect(() => {
         toShow = results.map(res => {
-            return {image :res.image , name: res.name, url: res.url}
+            return {image :res.image , name: res.name, url: res.url, id:res.id}
         });
        setCarouselItems(toShow);
       }, results);
+  
 
-    //TODO: shows view of all the episodes: the podcast: probly need navigation
-  const pressOnAPodcast = async () => {
-   
-  }
-
-    const _renderItem = ({item,index})=>{
+    const _renderItem = ({item})=>{
         return (
           <TouchableOpacity style={{
               borderRadius: 5,
               height: 200,              
               marginLeft: 25,
               marginRight: 25, }}
-              onPress={() => pressOnAPodcast()}
+              key={item.id}
+              onPress={() => {
+                var id = item.id;
+                pressOnAPodcast(id,carouselItems)
+              }}
               >
                 <ImageBackground source={{ uri: item.image }} style={{ width: '100%', height: '100%' }}>
                     <View 
@@ -54,9 +55,7 @@ const CarouselComponent = ({results}) => {
                   data={carouselItems}
                   sliderWidth={300}
                   itemWidth={250}
-                  renderItem={_renderItem}
-                  onSnapToItem = { index => setActiveIndex(index) } />
-                
+                  renderItem={_renderItem} />               
             </View>
           </SafeAreaView>
         );
