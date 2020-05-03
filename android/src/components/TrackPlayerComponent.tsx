@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import TrackPlayer from 'react-native-track-player';
+import React, { useState} from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import Slider from '@react-native-community/slider';
 import { observer } from "mobx-react";
 //components
-import PlayerService from '../services/PlayerService';
 import { useRootStore } from '../contexts/RootStoreContext';
 import { Styles } from '../theme/Styles';
 import PlayerSlider from '../components/PlayerSlider';
@@ -49,12 +46,19 @@ const TrackPlayerComponent = () => {
       <Icon name='caretright' size={30} />
     </TouchableOpacity>
   )
+  var titleShow = playerStore.getCurrentTrack()? (
+    <Text ellipsizeMode='tail' numberOfLines={2}>{playerStore.getCurrentTrack().title}</Text>
+  ):(
+    undefined
+  )
   return (
+    <>
+    {titleShow}   
     <View style={Styles.navBarLeftButton}>
       {showIcon}
-      <PlayerSlider position={position} duration={duration} />       
-     
+      <PlayerSlider position={position} duration={duration} />           
     </View>
+    </>
   );
 };
 

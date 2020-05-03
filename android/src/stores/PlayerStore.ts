@@ -3,32 +3,46 @@ import RootStore from './RootStore';
 import TrackPlayer, {STATE_PLAYING, STATE_PAUSED} from 'react-native-track-player';
 import PlayerService from '../services/PlayerService';
 
-TrackPlayer.registerPlaybackService( () => PlayerService);
-
-
+//TrackPlayer.registerPlaybackService( () => PlayerService);
 
 class PlayerStore {    
-    rootStore: RootStore; 
+    rootStore: RootStore;
    
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
-        TrackPlayer.setupPlayer().then(async () => {
-            await TrackPlayer.add({
-                id: 'trackId',
-                url: 'https://media.whooshkaa.com/show/5817/episode/623483.mp3',
-                title: 'Track Title',
-                artist: 'Track Artist',
-                //artwork: require('./track.png')
-            });
-        });
-        this.turnIsPlaying();     
-        
+        TrackPlayer.setupPlayer()
+        this.turnIsPlaying();           
         
     }
 
 
     @observable
     public isPlaying = false;
+
+    @observable
+    public currentTrack = undefined;
+
+    @action
+    public getCurrentTrack(){
+      return this.currentTrack;
+    }
+
+    @action
+    public async reset(){
+            await TrackPlayer.reset();
+    }
+    
+    @action
+    public async add(track){
+         await TrackPlayer.add({
+                id: track.id,
+                url: track.url,
+                title: track.title,
+                artwork: track.artwork,
+                artist: track.artist,
+            });
+        this.currentTrack = track;
+    }
     
     @action
     public async play() {
@@ -53,6 +67,13 @@ class PlayerStore {
             }
         });
     };
+
+    @action
+    public changingTrack(){
+        TrackPlayer.addEventListener('playback-track-changed', async (data)=>{
+            console.log('from playerStore: track changed:', data)
+        })
+    }
 
     @action
     public async getDuration(){

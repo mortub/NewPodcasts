@@ -20,7 +20,7 @@ const PlayerSlider = ({ position, duration }) => {
               playerStore.seekTo(val);
             }}
             onSlidingComplete={ val=>{             
-              playerStore.play();
+              playerStore.pause();
             }}
             value={position}
             style={Styles.sliderWidth}

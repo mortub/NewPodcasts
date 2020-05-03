@@ -1,11 +1,12 @@
 
  export const Styles = {
     navBarLeftButton: {
-      width: '80%',
-      flex: 0.1,
+      width: '85%',
+      flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-start',
+      padding:20,
     },
     sliderWidth:{
       width: '110%'
