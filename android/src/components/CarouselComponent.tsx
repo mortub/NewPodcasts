@@ -4,6 +4,7 @@ import * as rssParser from 'react-native-rss-parser';
 import Carousel from 'react-native-snap-carousel';
 //components
 import EpisodesView from '../components/EpisodesView';
+import { Styles } from '../theme/Styles';
 
 //component for showing different podcasts. 
 //receives an array of objects that represent a podcast
@@ -47,17 +48,19 @@ const CarouselComponent = ({results, pressOnAPodcast}) => {
     }
 
         return (
-          <SafeAreaView style={{flex: 1, backgroundColor:'#F7F3E4', paddingTop: 50, }}>
-            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
-                <Carousel
+          <View style={Styles.mainColor}>
+          <SafeAreaView style={{flex: 1, paddingTop: 50, }}>
+            <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>            
+              <Carousel
                   layout={"default"}
                   ref={ref => carousel = ref}
                   data={carouselItems}
                   sliderWidth={300}
                   itemWidth={250}
-                  renderItem={_renderItem} />               
+                  renderItem={_renderItem} />                                        
             </View>
           </SafeAreaView>
+          </View>
         );
 }
 

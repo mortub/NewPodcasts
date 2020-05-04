@@ -31,7 +31,7 @@ const TrackPlayerComponent = () => {
   //the icon that needs to be shown: play/pause
   var showIcon = playerStore.isPlaying ?
   (
-    <TouchableOpacity onPress={() =>{
+    <TouchableOpacity  onPress={() =>{
       playerStore.pause();
       playerStore.getPosition().then(
         (position) => {
@@ -50,13 +50,18 @@ const TrackPlayerComponent = () => {
     <Text ellipsizeMode='tail' numberOfLines={2}>{playerStore.getCurrentTrack().title}</Text>
   ):(
     undefined
-  )
+  );
+
+  const formatPosition= (position) =>{
+    var pos = new Date(position * 1000).toISOString().substr(11, 8);
+    return pos;
+  };
   return (
     <>
     {titleShow}   
-    <View style={Styles.navBarLeftButton}>
-      {showIcon}
-      <PlayerSlider position={position} duration={duration} />           
+    <View style={Styles.navBarLeftButton}>  
+      {showIcon}   
+      <PlayerSlider position={position} duration={duration} />  
     </View>
     </>
   );

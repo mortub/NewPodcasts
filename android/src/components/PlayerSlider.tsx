@@ -4,10 +4,15 @@ import { observer } from "mobx-react";
 //components
 import { Styles } from '../theme/Styles';
 import { useRootStore } from '../contexts/RootStoreContext';
+import { Text, View} from 'react-native';
 
 const PlayerSlider = ({ position, duration }) => {
     const { playerStore } = useRootStore();
+
+   
+ 
     return (
+      <>
         <Slider
             minimumValue={0}
             maximumValue={duration}
@@ -21,10 +26,12 @@ const PlayerSlider = ({ position, duration }) => {
             }}
             onSlidingComplete={ val=>{             
               playerStore.pause();
+              
             }}
             value={position}
-            style={Styles.sliderWidth}
-        />     
+            style={Styles.sliderWidth}            
+        /> 
+        </> 
     );
 };
 

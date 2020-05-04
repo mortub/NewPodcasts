@@ -21,7 +21,6 @@
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
     "react": "16.11.0",
-    "react-hover": "^1.4.0",
     "react-native": "0.62.2",
     "react-native-elements": "^2.0.0",
     "react-native-gesture-handler": "^1.6.1",

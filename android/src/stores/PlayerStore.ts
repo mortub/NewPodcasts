@@ -3,7 +3,7 @@ import RootStore from './RootStore';
 import TrackPlayer, {STATE_PLAYING, STATE_PAUSED} from 'react-native-track-player';
 import PlayerService from '../services/PlayerService';
 
-//TrackPlayer.registerPlaybackService( () => PlayerService);
+TrackPlayer.registerPlaybackService( () => PlayerService);
 
 class PlayerStore {    
     rootStore: RootStore;
@@ -34,12 +34,14 @@ class PlayerStore {
     
     @action
     public async add(track){
+        
          await TrackPlayer.add({
                 id: track.id,
                 url: track.url,
                 title: track.title,
                 artwork: track.artwork,
                 artist: track.artist,
+                description:track.description,
             });
         this.currentTrack = track;
     }
@@ -55,6 +57,29 @@ class PlayerStore {
     };
 
     @action
+    public async skip10SecondsForward(){
+        this.pause();
+        await this.getPosition()
+        .then(async (position) =>{
+           await TrackPlayer.seekTo(position +10);
+        });
+        this.play();
+    };
+
+    @action 
+    public async skip10SecondsBack(){
+        this.pause();
+        await this.getPosition()
+        .then(async (position) =>{
+            var pos=position-10 ;
+            if(pos>10){
+                await TrackPlayer.seekTo(position-10);
+            }          
+        });
+        this.play();
+    };
+
+    @action
     public turnIsPlaying(){
         TrackPlayer.addEventListener('playback-state',async (state) =>{
             
@@ -67,13 +92,6 @@ class PlayerStore {
             }
         });
     };
-
-    @action
-    public changingTrack(){
-        TrackPlayer.addEventListener('playback-track-changed', async (data)=>{
-            console.log('from playerStore: track changed:', data)
-        })
-    }
 
     @action
     public async getDuration(){
