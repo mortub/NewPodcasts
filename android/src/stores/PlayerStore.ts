@@ -1,12 +1,14 @@
-import { action, observable, decorate } from 'mobx';
+import { action, observable } from 'mobx';
 import RootStore from './RootStore';
 import TrackPlayer, {STATE_PLAYING, STATE_PAUSED} from 'react-native-track-player';
 import PlayerService from '../services/PlayerService';
+
 
 TrackPlayer.registerPlaybackService( () => PlayerService);
 
 class PlayerStore {    
     rootStore: RootStore;
+    
    
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
@@ -21,6 +23,8 @@ class PlayerStore {
 
     @observable
     public currentTrack = undefined;
+
+   
 
     @action
     public getCurrentTrack(){
@@ -42,7 +46,9 @@ class PlayerStore {
                 artwork: track.artwork,
                 artist: track.artist,
                 description:track.description,
+                duration: track.duration,
             });
+    
         this.currentTrack = track;
     }
     

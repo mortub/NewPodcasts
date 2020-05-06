@@ -4,13 +4,10 @@ import { observer } from "mobx-react";
 //components
 import { Styles } from '../theme/Styles';
 import { useRootStore } from '../contexts/RootStoreContext';
-import { Text, View} from 'react-native';
 
 const PlayerSlider = ({ position, duration }) => {
     const { playerStore } = useRootStore();
-
-   
- 
+    
     return (
       <>
         <Slider

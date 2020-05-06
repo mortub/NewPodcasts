@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text,ImageBackground } from 'react-native';
+import { View, Text,ImageBackground, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Tooltip } from 'react-native-elements';
+import FlashMessage, {showMessage} from "react-native-flash-message";
 import { observer } from "mobx-react";
 //components
 import { useRootStore } from '../contexts/RootStoreContext';
@@ -10,56 +10,58 @@ import { durationFormat } from '../utils/Calculations';
 
 
 //represents a podcast episode
-const Episode = ({ items,podcastName }) => {
+const Episode = ({ track }) => {
     const { playerStore } = useRootStore();
-   
-    var show = items.map(item => {
-        var track = {
-            id: item.id,
-            url: item.enclosures[0].url,
-            title: item.title,
-            artwork: item.itunes.image,
-            artist: podcastName,
-            description: item.description,
-        }
-        var showNowPlaying = 
-            playerStore.currentTrack? (
-                playerStore.currentTrack.id === track.id ?
-                    <Text style={{ fontSize: 12, paddingLeft: 10, paddingTop: 20, color: 'green' }}>now playing</Text>
-                    :
-                    undefined
-            ) : (
-                 undefined
-            )
+    const { myListStore } = useRootStore();
 
-        return (
-            <View style={Styles.buttonStyle} key={item.id}>
+   
+    var showNowPlaying = 
+    playerStore.currentTrack? (
+        playerStore.currentTrack.id === track.id ?
+            <Text style={{ fontSize: 12, paddingLeft: 10, paddingTop: 20, color: 'green' }}>now playing</Text>
+            :
+            undefined
+    ) : (
+         undefined
+    );
+
+    return (
+            <View style={Styles.buttonStyle} key={track.id}>              
                 <View style={Styles.container}>
-                    <ImageBackground source={{ uri: item.itunes.image }} style={Styles.episodeImage} />
-                    <Text style={{ flexShrink: 1, paddingLeft: 5 }}>{item.title}</Text>
+                    <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
+                    <Text style={{ flexShrink: 1, paddingLeft: 5 }}>{track.title}</Text>
+                    <FlashMessage position="center" />  
                 </View>
                 <View style={Styles.container}>
-                    <Text style={{ paddingTop: 10 }}> {durationFormat(item.itunes.duration)}</Text>
-                    <Tooltip popover={<Text>added to list</Text>}>
-                        <Icon name='pluscircle' size={30} style={{ paddingLeft: 50 }} />
-                    </Tooltip>                   
+                    <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
+                   
+                        <Icon name='pluscircle' size={30} style={{ paddingLeft: 50 }}
+                      
+                        onPress={()=>{
+                            showMessage({
+                                message: "added to list",
+                                type: "success",
+                                backgroundColor:'#FFE4E1',
+                                color:'black'
+                              });
+                            myListStore.addTrack(track);
+                            
+                        }} 
+                        />
+                              
                     <Icon name='caretright' size={30} onPress={() => {
                             playerStore.pause();
                             playerStore.reset();
                             playerStore.add(track);
                             playerStore.play();
+
+                            myListStore.DeleteTrack(track);
                         }
                         } style={{ paddingLeft: 110 }} />
-                     {showNowPlaying}                                      
+                     {showNowPlaying} 
+                                                        
                 </View>
             </View>
-        )
-    });
-
-    return (
-        <View>
-            {show}
-        </View>
     )
 }
 

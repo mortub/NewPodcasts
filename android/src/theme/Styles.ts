@@ -40,7 +40,13 @@
       },
       mainColor:{
         backgroundColor:'#FFE4E1',
-      }
+      },
+      nothingToShowText:
+      {textAlign: 'center',
+      paddingTop: 50, 
+      fontSize:30,
+      
+    }
       
   };
 

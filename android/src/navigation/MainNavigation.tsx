@@ -25,33 +25,24 @@ const MainNavigation = () => {
         <Tab.Navigator
           tabBarOptions={{
             showLabel: false,
-            activeTintColor: 'blue',
-            inactiveTintColor: 'grey',
+            activeTintColor:'#FFE4E1',
+            inactiveTintColor:'black'
 
-          }}
-          screenOptions={({ route }) => ({
-            tabBarIcon: () => {
-              if (route.name === 'Home') {
-                return <Icon name="home" size={30} />;
-              }
-              if (route.name === 'Subscriptors') {
-                return <Icon name="hearto" size={30} />;
-              }
-              if (route.name === 'MyList') {
-                return <Icon name="menu-fold" size={30} />;
-              }
-              if (route.name === 'EpisodeStack') {
-                return <Icon name="pptfile1" size={30} />;
-              }
-            },
-
-          })}
+          }}        
         >
 
-          <Tab.Screen name='Home' component={HomeStackScreen} />
-          <Tab.Screen name='Subscriptors' component={SubStackScreen} />
-          <Tab.Screen name='MyList' component={MyListStackScreen} />
-          <Tab.Screen name='EpisodeStack' component={EpisodeStackScreen} />
+          <Tab.Screen name='Home' component={HomeStackScreen} options={{
+            tabBarIcon: ({color}) => <Icon name="home" size={30} color={color}/>
+          }}/>
+          <Tab.Screen name='Subscriptors' component={SubStackScreen} options={{
+            tabBarIcon: ({color}) => <Icon name="hearto" size={30} color={color} />
+          }} />
+          <Tab.Screen name='MyList' component={MyListStackScreen} options={{
+            tabBarIcon: ({color}) => <Icon name="menu-fold" size={30} color={color}/>
+          }}/>
+          <Tab.Screen name='EpisodeStack' component={EpisodeStackScreen} options={{
+            tabBarIcon: ({color}) => <Icon name="pptfile1" size={30} color={color}/>
+          }}/>
         </Tab.Navigator>
         <View style={{
           position:'absolute',

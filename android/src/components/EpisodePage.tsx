@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 //components
 import { useRootStore } from '../contexts/RootStoreContext';
 import { Styles } from '../theme/Styles';
-import TrackPlayerComponent from './TrackPlayerComponent';
+import BottomGap from './BottomGap';
 
 const EpisodePage = (navigation) =>{
     const { playerStore } = useRootStore();
@@ -35,7 +35,8 @@ const EpisodePage = (navigation) =>{
             <ImageBackground source={{ uri: playerStore.currentTrack.artwork }} style={Styles.bigEpisodeImage} />
             <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.title}</Text>
             {icons}
-            <Text style={{ paddingTop: 20 , paddingBottom:500}}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>
+            <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>
+            <BottomGap />
         </ScrollView>
         
     ):(
