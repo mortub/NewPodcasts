@@ -1,4 +1,4 @@
-
+//cross-app style
  export const Styles = {
     navBarLeftButton: {
       width: '100%',
@@ -44,9 +44,20 @@
       nothingToShowText:
       {textAlign: 'center',
       paddingTop: 50, 
-      fontSize:30,
-      
-    }
+      fontSize:30,      
+    },
+    podcastTitle:{
+    fontSize:20 , 
+    paddingTop:20,
+    paddingBottom:20, 
+    fontFamily:'Lobster-Regular',
+    },
+    searchInHomeText: {
+      paddingLeft:20, 
+      paddingTop:15, 
+      fontSize:20, 
+      fontFamily:'Lobster-Regular'
+    },
       
   };
 

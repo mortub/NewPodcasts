@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "25613236411",
+    "firebase_url": "https://newpodcasts.firebaseio.com",
+    "project_id": "newpodcasts",
+    "storage_bucket": "newpodcasts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:25613236411:android:fb9491da5eab71c1a1919e",
+        "android_client_info": {
+          "package_name": "com.newpodcasts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "25613236411-tcu40f3vdldumim9bqg9gjupnl28hilr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.newpodcasts",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "25613236411-3jh83pdeo6e1re4o02ubkqngdkdtkfu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvwC6xhXweeGdrn72stYfYSgUzjuq4ROM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "25613236411-3jh83pdeo6e1re4o02ubkqngdkdtkfu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

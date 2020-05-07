@@ -36,9 +36,6 @@ export const fetchPodcast =(pod) =>{
      })
     .then((rss) => {
         return rss;
-        // navigation.navigate('EpisodesView', {
-        //        rss: rss
-        //   });
         })
      .catch(err => {
         console.log(err);

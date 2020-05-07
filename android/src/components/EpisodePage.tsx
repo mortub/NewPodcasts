@@ -1,14 +1,19 @@
 import React from 'react';
-import { View, Text, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, TouchableOpacityBase} from 'react-native';
 import { observer } from "mobx-react";
 import Icon from 'react-native-vector-icons/AntDesign';
 //components
 import { useRootStore } from '../contexts/RootStoreContext';
 import { Styles } from '../theme/Styles';
 import BottomGap from './BottomGap';
+import PodcastTitle from './PodcastTitle';
+import PodcastImage from './PodcastImage';
 
+//component to control and show information about the current episode that is playing
 const EpisodePage = (navigation) =>{
     const { playerStore } = useRootStore();
+
+    //showing the icons of moving 10 sec back/forward in the current episode
     var icons = (
         <View style={{flex: 1,
             flexDirection: 'row', padding:10}}>        
@@ -25,23 +30,21 @@ const EpisodePage = (navigation) =>{
             }}>
                 <Icon name='banckward' size={30} />
             </TouchableOpacity>
-
         </View>
-    )
-
-    var showEpisode = playerStore.currentTrack? (
+    );
+    //if there is a current track chosen, show the image, title etc..
+    var showEpisode = playerStore.currentTrack ? (
         <ScrollView >
-            <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.artist}</Text>
-            <ImageBackground source={{ uri: playerStore.currentTrack.artwork }} style={Styles.bigEpisodeImage} />
+            <PodcastTitle title={playerStore.currentTrack.artist} />
+            <PodcastImage image={playerStore.currentTrack.artwork} />
             <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.title}</Text>
             {icons}
             <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>
             <BottomGap />
-        </ScrollView>
-        
+        </ScrollView>       
     ):(
-        undefined
-    )
+        <Text style={Styles.podcastTitle} >No Track To Display</Text>
+    );
 
     return (
         <View>

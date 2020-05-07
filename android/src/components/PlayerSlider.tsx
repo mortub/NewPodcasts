@@ -5,11 +5,12 @@ import { observer } from "mobx-react";
 import { Styles } from '../theme/Styles';
 import { useRootStore } from '../contexts/RootStoreContext';
 
+//component to show the slider in the trackplayer: moves with sound
+//receives the track duration+position 
 const PlayerSlider = ({ position, duration }) => {
     const { playerStore } = useRootStore();
     
     return (
-      <>
         <Slider
             minimumValue={0}
             maximumValue={duration}
@@ -28,7 +29,6 @@ const PlayerSlider = ({ position, duration }) => {
             value={position}
             style={Styles.sliderWidth}            
         /> 
-        </> 
     );
 };
 

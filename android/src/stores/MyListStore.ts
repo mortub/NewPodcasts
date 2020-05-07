@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 import RootStore from './RootStore';
 
+//the type saved in array of podcasts
 type track =
      { 
         id: string;
@@ -11,6 +12,7 @@ type track =
         description: string;
 };
 
+//saves all the podcasts the user added to my list
 class MyListStore{
     rootStore: RootStore;
 
@@ -21,7 +23,7 @@ class MyListStore{
     @observable
     public myList = Array<track>();
 
-
+    //adds a track to array
     @action
     public addTrack(track){
         //don't add track if already in list
@@ -32,20 +34,14 @@ class MyListStore{
         this.myList.push(track);   
     }
 
+    //deletes a track from array
     @action
     public DeleteTrack(track){
         //delete the track from myList
         let newArray= this.myList.filter((t) => t.id !== track.id);
         this.myList = newArray;
     }
-
-
-
-    
-    
-    
-
-    
+   
 };
 
 export default MyListStore;

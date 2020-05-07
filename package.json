@@ -14,6 +14,7 @@
     "@react-native-community/async-storage": "^1.10.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/slider": "^2.0.9",
+    "@react-native-firebase/app": "^6.7.1",
     "@react-navigation/bottom-tabs": "^5.2.8",
     "@react-navigation/native": "^5.1.7",
     "@react-navigation/stack": "^5.2.14",
@@ -63,5 +64,4 @@
       "node"
     ]
   }
-
 }

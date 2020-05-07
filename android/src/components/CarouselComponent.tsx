@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, ImageBackground, TouchableOpacity} from 'react-native';
-import * as rssParser from 'react-native-rss-parser';
+import { View, SafeAreaView, ImageBackground, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 //components
-import EpisodesView from '../components/EpisodesView';
 import { Styles } from '../theme/Styles';
 
-//component for showing different podcasts. 
-//receives an array of objects that represent a podcast
+//component for showing different podcasts in a carousel
+//receives an array of podcasts and a function of what to do when pressing a podcast
 const CarouselComponent = ({results, pressOnAPodcast}) => {
     var toShow = results.map(res => {
         return {image :res.image , name: res.name, url: res.url, id:res.id}
     });
 
+    //the podcasts that will be shown
     const [carouselItems, setCarouselItems] = useState(toShow);
-
+    //if there is a change in results, it updates
     useEffect(() => {
         toShow = results.map(res => {
             return {image :res.image , name: res.name, url: res.url, id:res.id}
@@ -22,7 +21,7 @@ const CarouselComponent = ({results, pressOnAPodcast}) => {
        setCarouselItems(toShow);
       }, results);
   
-
+    //each podcast will be a clickable image
     const _renderItem = ({item})=>{
         return (
           <TouchableOpacity style={{

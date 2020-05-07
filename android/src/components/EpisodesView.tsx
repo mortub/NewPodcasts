@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
-import { ScrollView, Text, ImageBackground, SectionList} from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { observer } from "mobx-react";
 //components
 import Episode from './Episode';
-import { Styles } from '../theme/Styles';
 import { useRootStore } from '../contexts/RootStoreContext';
 import BottomGap from './BottomGap';
+import PodcastTitle from './PodcastTitle';
+import PodcastImage from './PodcastImage';
 
 //shows all of the episodes of a certain podcast
 const EpisodesView = ({ route, navigation }) =>{
     const { cachingStore } = useRootStore();
-
+    //a constant to tell the <Episode /> what page he is on
+    const fromMyListScreen = false;
     const [podcast, setPodcast] = useState({
         title:'',
         image: undefined,
         description: '',
     })
-
+    //see if the information was already cached
     cachingStore.peek(route.params.rss.title)
         .then((value) => {
             //if there aren't episodes saved in cache, set it
@@ -39,28 +41,33 @@ const EpisodesView = ({ route, navigation }) =>{
                 })              
             }
         });
-
+        //show all episodes of the podcast
         const showEpisodes = ()=>{
             return route.params.rss.items.map(item => {
+                var img= item.itunes.image?(
+                    item.itunes.image
+                ):(
+                    item.googleplay.image
+                )
                 var track = {
                     id: item.id,
                     url: item.enclosures[0].url,
                     title: item.title,
-                    artwork: item.itunes.image,
+                    artwork: img,
                     artist: podcast.title,
                     description: item.description,
                     duration: item.itunes.duration,
                 }
                return (
-                    <Episode track={track} key={track.id} />
+                    <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />
                );
             })          
         }
 
     return (
         <ScrollView>
-            <Text style={{fontSize:20 , paddingTop:20,paddingBottom:20}}>{podcast.title}</Text>
-            <ImageBackground source={{ uri:podcast.image }} style={Styles.bigEpisodeImage} />
+           <PodcastTitle title= {podcast.title}/>
+           <PodcastImage image={podcast.image}/>
             <Text style={{ paddingTop:20,paddingBottom:20}}>{podcast.description}</Text>           
             {showEpisodes()}
            <BottomGap />

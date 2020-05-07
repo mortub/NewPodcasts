@@ -1,20 +1,22 @@
 import React from 'react';
-import { View, Text,ImageBackground, Alert } from 'react-native';
+import { View, Text,ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import FlashMessage, {showMessage} from "react-native-flash-message";
+import FlashMessage from "react-native-flash-message";
 import { observer } from "mobx-react";
 //components
 import { useRootStore } from '../contexts/RootStoreContext';
 import { Styles } from '../theme/Styles';
 import { durationFormat } from '../utils/Calculations';
+import AddToListIcon from './AddToListIcon';
 
 
 //represents a podcast episode
-const Episode = ({ track }) => {
+const Episode = ({ track , fromMyListScreen}) => {
+
     const { playerStore } = useRootStore();
     const { myListStore } = useRootStore();
 
-   
+   //shows a text of 'now playing' if the current track is chosen
     var showNowPlaying = 
     playerStore.currentTrack? (
         playerStore.currentTrack.id === track.id ?
@@ -25,43 +27,35 @@ const Episode = ({ track }) => {
          undefined
     );
 
-    return (
-            <View style={Styles.buttonStyle} key={track.id}>              
-                <View style={Styles.container}>
-                    <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
-                    <Text style={{ flexShrink: 1, paddingLeft: 5 }}>{track.title}</Text>
-                    <FlashMessage position="center" />  
-                </View>
-                <View style={Styles.container}>
-                    <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
-                   
-                        <Icon name='pluscircle' size={30} style={{ paddingLeft: 50 }}
-                      
-                        onPress={()=>{
-                            showMessage({
-                                message: "added to list",
-                                type: "success",
-                                backgroundColor:'#FFE4E1',
-                                color:'black'
-                              });
-                            myListStore.addTrack(track);
-                            
-                        }} 
-                        />
-                              
-                    <Icon name='caretright' size={30} onPress={() => {
-                            playerStore.pause();
-                            playerStore.reset();
-                            playerStore.add(track);
-                            playerStore.play();
+    //choosing wheter to show the + icon 
+    var showAddToListIcon = fromMyListScreen? (
+        undefined
+    ):(
+         <AddToListIcon track={track} />
+    );
 
-                            myListStore.DeleteTrack(track);
-                        }
-                        } style={{ paddingLeft: 110 }} />
-                     {showNowPlaying} 
-                                                        
-                </View>
+    return (
+        <View style={Styles.buttonStyle} key={track.id}>
+            <View style={Styles.container}>
+                <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
+                <Text style={{ flexShrink: 1, paddingLeft: 5 ,}}>{track.title}</Text>
+                <FlashMessage position="center" />
             </View>
+            <View style={Styles.container}>
+                <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
+               {showAddToListIcon}
+                <Icon name='caretright' size={30} onPress={() => {
+                    playerStore.pause();
+                    playerStore.reset();
+                    playerStore.add(track);
+                    playerStore.play();
+
+                    myListStore.DeleteTrack(track);
+                }
+                } style={{ paddingLeft: 110 }} />
+                {showNowPlaying}
+            </View>
+        </View>
     )
 }
 

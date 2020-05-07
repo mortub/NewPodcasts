@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { View } from 'react-native';
 
-//represents the favorite podcasts of a user
+//represents the podcasts that the user is subscribed to
 const Subscriptors = ({ navigation }) =>{
     return (
         <View>

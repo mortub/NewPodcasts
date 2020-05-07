@@ -7,11 +7,8 @@ import { useRootStore } from '../contexts/RootStoreContext';
 import { Styles } from '../theme/Styles';
 import PlayerSlider from '../components/PlayerSlider';
 
-
-
 //a track player
 const TrackPlayerComponent = () => {
-  //using the global player
   const { playerStore } = useRootStore();
 
   const [duration, setDuration] = useState(0);
@@ -52,10 +49,6 @@ const TrackPlayerComponent = () => {
     undefined
   );
 
-  const formatPosition= (position) =>{
-    var pos = new Date(position * 1000).toISOString().substr(11, 8);
-    return pos;
-  };
   return (
     <>
     {titleShow}   
