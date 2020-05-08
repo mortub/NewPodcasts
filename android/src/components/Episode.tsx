@@ -39,7 +39,7 @@ const Episode = ({ track , fromMyListScreen}) => {
             <View style={Styles.container}>
                 <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
                 <Text style={{ flexShrink: 1, paddingLeft: 5 ,}}>{track.title}</Text>
-                <FlashMessage position="center" />
+               
             </View>
             <View style={Styles.container}>
                 <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>

@@ -34,7 +34,7 @@ const MainNavigation = () => {
           <Tab.Screen name='Home' component={HomeStackScreen} options={{
             tabBarIcon: ({color}) => <Icon name="home" size={30} color={color}/>
           }}/>
-          <Tab.Screen name='Subscriptors' component={SubStackScreen} options={{
+          <Tab.Screen name='Subscribers' component={SubStackScreen} options={{
             tabBarIcon: ({color}) => <Icon name="hearto" size={30} color={color} />
           }} />
           <Tab.Screen name='MyList' component={MyListStackScreen} options={{

@@ -1,6 +1,6 @@
 import React from 'react';
 //Components
-import Subscriptors from '../components/Subscriptors';
+import Subscribers from '../components/Subscribers';
 //Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -9,7 +9,7 @@ const SubStack = createStackNavigator();
 const SubStackScreen = () => {
     return (
       <SubStack.Navigator>
-         <SubStack.Screen name="Subscriptors" component={Subscriptors} />
+         <SubStack.Screen name="Subscribers" component={Subscribers} />
       </SubStack.Navigator>
     )
   };
