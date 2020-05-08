@@ -3,7 +3,7 @@ import { Text, View, ScrollView } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 //components
 import CarouselComponent from './CarouselComponent';
-import { fetchPodcasts, fetchPodcast} from '../Api/Fetches';
+import { fetchPodcasts } from '../Api/Fetches';
 import { Styles } from '../theme/Styles';
 
 //showing the search results of the podcasts
@@ -30,12 +30,9 @@ const SearchResults = ({ navigation }) => {
     const pressOnAPodcast = async (id,carouselItems) =>{
         carouselItems.map((pod)=>{
             if(pod.id === id){
-                fetchPodcast(pod)
-               .then((rss)=>{
                 navigation.navigate('EpisodesView',{
-                    rss:rss
-                 });          
-               })
+                    rssUrl:pod.url
+                 });                    
             }
         })
     };

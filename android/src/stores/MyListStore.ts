@@ -10,6 +10,7 @@ type track =
         artwork: string;
         artist: string;
         description: string;
+        rssUrl: string;
 };
 
 //saves all the podcasts the user added to my list

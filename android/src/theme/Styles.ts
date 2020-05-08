@@ -58,6 +58,16 @@
       fontSize:20, 
       fontFamily:'Lobster-Regular'
     },
+    clickableOpacity:{
+      flexDirection: 'row',
+      marginTop: 10,
+      paddingBottom: 20,
+      backgroundColor: '#FFE4E1',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#FFE4E1'
+    }
+    
       
   };
 

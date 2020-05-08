@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 //represents the podcasts that the user is subscribed to
-const Subscriptors = ({ navigation }) =>{
+const Subscibers = ({ navigation }) =>{
     return (
         <View>
             
@@ -10,4 +10,4 @@ const Subscriptors = ({ navigation }) =>{
     )
 }
 
-export default Subscriptors;
+export default Subscibers;
