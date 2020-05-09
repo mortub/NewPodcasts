@@ -10,6 +10,7 @@ type track =
         artwork: string;
         artist: string;
         description: string;
+        duration:string,
         rssUrl: string;
 };
 

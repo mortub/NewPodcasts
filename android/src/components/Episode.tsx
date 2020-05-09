@@ -27,23 +27,15 @@ const Episode = ({ track , fromMyListScreen}) => {
          undefined
     );
 
-    //choosing wheter to show the + icon 
-    var showAddToListIcon = fromMyListScreen? (
-        undefined
-    ):(
-         <AddToListIcon track={track} />
-    );
-
     return (
         <View style={Styles.buttonStyle} key={track.id}>
             <View style={Styles.container}>
                 <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
-                <Text style={{ flexShrink: 1, paddingLeft: 5 ,}}>{track.title}</Text>
-               
+                <Text style={{ flexShrink: 1, paddingLeft: 5 ,}}>{track.title}</Text>            
             </View>
             <View style={Styles.container}>
                 <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
-               {showAddToListIcon}
+                <AddToListIcon track={track} fromMyListScreen={fromMyListScreen}/>
                 <Icon name='caretright' size={30} onPress={() => {
                     playerStore.pause();
                     playerStore.reset();
@@ -52,7 +44,7 @@ const Episode = ({ track , fromMyListScreen}) => {
 
                     myListStore.DeleteTrack(track);
                 }
-                } style={{ paddingLeft: 110 }} />
+                } style={{ paddingLeft: 90 }} />
                 {showNowPlaying}
             </View>
         </View>
