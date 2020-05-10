@@ -1,81 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { observer } from "mobx-react";
 //components
 import { useRootStore } from '../contexts/RootStoreContext';
-//firebase
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
 
 const AddToListIcon = ({ track,fromMyListScreen}) => {
-    const user = auth().currentUser;
+    //the local store of the user's list
     const { myListStore } = useRootStore();
+    //to control the icon that is shown
     const [added, setAdded] = useState(false);
 
-    const addToList = async () => {
-        if (user) {
-            await firestore()
-                .collection('myList')
-                .add({
-                    email: user.email,
-                    id: track.id,
-                    url: track.url,
-                    title: track.title,
-                    artwork: track.artwork,
-                    artist: track.artist,
-                    description: track.description,
-                    duration: track.duration,
-                    rssUrl: track.rssUrl,
-                })
-        }
-    };
-
-    const unAddToList = async () => {
-        var toDelete = undefined;
-        await firestore()
-            .collection('myList')
-            .get()
-            .then((episodes) => {
-                episodes.docs.map((doc) => {
-                    if (doc._data.email === user.email && doc._data.url === track.url) {
-                        toDelete = doc.id;
-                    }
-                })
-            })
-        if (toDelete) {
-            await firestore()
-                .collection('myList')
-                .doc(toDelete)
-                .delete()
-        }
-    }
+    useEffect(()=>{
+      if(myListStore.checkIsTrackOnList(track) === true){
+        setAdded(true);
+      }else{
+        setAdded(false);
+      }
+    },[myListStore.myList])
 
     var showAddOrDeleteFromList = added ? (
         <Icon name='minuscircle' size={30} style={{ paddingLeft: 20 }}
             onPress={() => {
-                unAddToList();
-                setAdded(false);
-                //adding the episode to my list
-                myListStore.DeleteTrack(track);
+                 //deleting the episode from my list
+                 myListStore.DeleteTrack(track); 
+                 setAdded(false); 
+
             }} />
     ) : (
             <Icon name='pluscircle' size={30} style={{ paddingLeft: 20 }}
                 onPress={() => {
-                    addToList()
-                    setAdded(true);
-
                     //adding the episode to my list
-                    myListStore.addTrack(track);
+                    myListStore.addTrack(track);    
+                    setAdded(true);                               
                 }} />
         )
 
         var show = fromMyListScreen? (
             <Icon name='minuscircle' size={30} style={{ paddingLeft: 20 }}
             onPress={() => {
-                unAddToList();
-                //setAdded(false);
                 //adding the episode to my list
-                myListStore.DeleteTrack(track);
+                myListStore.DeleteTrack(track);  
+                setAdded(false);         
             }} />
         ):(
            showAddOrDeleteFromList 
@@ -88,4 +53,4 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
     )
 };
 
-export default AddToListIcon;
+export default observer(AddToListIcon);

@@ -1,48 +1,18 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import FlashMessage, {showMessage} from "react-native-flash-message";
-//firebase
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+import { addToSub, searchDocIdFromSub, deleteFromSub } from '../utils/FirestoreFetches';
 
 const SubscribeIcon = ({rssUrl, title, image}) => {
-    const user = auth().currentUser;
     //to control the message given to the user
     const [added, setAdded] = useState(false);
 
    //to delete a subscriber if the user chose it
     const unSub = async() =>{
-        var toDelete = undefined;
-        await firestore()
-        .collection('subscribers')
-        .get()
-        .then((subscribers)=>{
-            subscribers.docs.map((doc)=>{
-                if(doc._data.email === user.email && doc._data.podcastTitle === title){
-                   toDelete = doc.id;
-                }
-            })
+        searchDocIdFromSub(title)
+        .then((docId)=>{
+            deleteFromSub(docId);
         })
-        if(toDelete){
-            await firestore()
-            .collection('subscribers')
-            .doc(toDelete)
-            .delete()
-        }
-    }
-    //to add a subscriber if the user chose it
-    const addSub = async()=>{       
-        if(user){
-            await firestore()
-            .collection('subscribers')
-            .add({
-                email:user.email,
-                podcastTitle:title,
-                podcastImage:image,
-                podcastRssUrl:rssUrl,
-            })
-        }       
     }
     //if the user added sub, show unsub bottom,
     //otherwise, show sub bottton
@@ -78,9 +48,9 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
       borderWidth: 1,
       borderColor: '#FFE4E1'
         }}
-        onPress={() => {
-            setAdded(true);
-            addSub();        
+        onPress={() => {         
+            addToSub(rssUrl, title, image);
+            setAdded(true);  
         }}
         >             
          <Icon name="adduser" size={30} style={{paddingTop: 10}}/>           

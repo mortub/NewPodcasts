@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 //components
 import SearchIcon from './SearchIcon';
 import { Styles } from '../theme/Styles';
+import { useRootStore } from '../contexts/RootStoreContext';
 
 //represents the Home screen of the app
 const Home = ({ navigation }) =>{
-   
+    //the local store of the user's list
+    const { myListStore } = useRootStore();
+
+    useEffect(() => {
+        myListStore.fromDbToLocalList()
+        .then(()=>{
+            
+        })
+       
+    },)
+
+  
     return (
         <TouchableOpacity 
         style={Styles.clickableOpacity}

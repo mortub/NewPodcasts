@@ -62,5 +62,5 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-# ./android/components/utils/WEB_CLIENT_ID
+# ./android/src/utils/WEB_CLIENT_ID.ts
 # ./android/app/google-services.json
