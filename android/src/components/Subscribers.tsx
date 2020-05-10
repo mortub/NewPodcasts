@@ -1,12 +1,17 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
+//components
+import PodcastItem from './PodcastItem';
+import BottomGap from './BottomGap';
 
 //represents the podcasts that the user is subscribed to
 const Subscibers = ({ navigation }) =>{
     return (
-        <View>
-            
-        </View>
+        <ScrollView>
+            <PodcastItem />
+            <PodcastItem />
+            <BottomGap />
+        </ScrollView>
     )
 }
 
