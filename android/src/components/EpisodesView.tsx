@@ -12,72 +12,107 @@ import { fetchPodcast } from '../Api/Fetches';
 
 //shows all of the episodes of a certain podcast
 const EpisodesView = ({ route, navigation }) =>{ 
+    const [isFetching, setFetching] = useState(true)
      //a constant to tell the <Episode /> what page he is on
      const fromMyListScreen = false;  
     // const { cachingStore } = useRootStore();
    
-    const [podcast, setPodcast] = useState({
-        title:'',
-        image: undefined,
-        description: '',
-    })
-    const [rss, setRss ] = useState();
+    // const [podcast, setPodcast] = useState({
+    //     title:'',
+    //     image: undefined,
+    //     description: '',
+    // })
+    const [rss, setRss ] = useState({});
 
-    useEffect(() => {
-        //fetch podcast
-        fetchPodcast(route.params.rssUrl)
+    useEffect(()=>{  
+        async function fetching(){
+            //fetch podcast
+            await fetchPodcast(route.params.rssUrl)
             .then((rss) => {
                 setRss(rss);
+               
             })
-            .catch((err)=>{
+            .then(()=>{
+                setFetching(false);
+            })
+            .catch((err) => {
                 console.log(err)
             })
-    })
-    
+        };
+        if(isFetching){
+            fetching(); 
+        }
+    },[])
+  
     //show all episodes of the podcast
-    const showEpisodes = () => {
-        return rss.items.map(item => {
-            var track = {
-                id: item.id,
-                url: item.enclosures[0].url,
-                title: item.title,
-                artwork: item.itunes.image ,
-                artist: rss.title,
-                description: item.description,
-                duration: item.itunes.duration,
-                rssUrl: route.params.rssUrl,
-            }
-            return (
-                <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />
-            );
-        })
-
+    const showEpisodesFunc = () => {
+            return rss.items.map(item => {
+                var track = {
+                    id: item.id,
+                    url: item.enclosures[0].url,
+                    title: item.title,
+                    artwork: item.itunes.image ,
+                    artist: rss.title,
+                    description: item.description,
+                    duration: item.itunes.duration,
+                    rssUrl: route.params.rssUrl,
+                }
+                return (
+                    <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />
+                );
+            })
     }
-    var showTitle = rss?(
+
+    var showTitle = isFetching?(
+        undefined     
+    ) : (
         <PodcastTitle title= {rss.title}/>
-    ):(
-        undefined
     )
 
-    var showImage = rss? (
+    var showImage = isFetching? (
+        undefined
+    ):(
         <PodcastImage image={rss.itunes.image}/>
-    ):(
-        undefined
     )
 
-    var showSubIcon= rss? (
-        <SubscribeIcon rssUrl={route.params.rssUrl} title={rss.title}image={rss.itunes.image}/>
-    ):(
+    var showSubIcon= isFetching? (
         undefined
+    ):(
+        <SubscribeIcon rssUrl={route.params.rssUrl} title={rss.title} image={rss.itunes.image}/>
     )
+
+    var showDescription = isFetching? (
+        undefined
+    ):(
+        <Text style={{ paddingTop:20,paddingBottom:20}}>{rss.description}</Text>     
+    )
+
     return (      
-        <ScrollView>      
-          {showTitle}
-           {showImage}
-           {showSubIcon}
-            <Text style={{ paddingTop:20,paddingBottom:20}}>{podcast.description}</Text>           
-            {rss? showEpisodes(): undefined}
-           <BottomGap />
+        <ScrollView style={{ paddingLeft: 10 }}>
+            {showTitle}
+            {showImage}
+            {showSubIcon}
+            {showDescription}
+            {isFetching? (
+                <Text>Loading...</Text>
+            ):(              
+                rss.items.map(item => {
+                    var track = {
+                        id: item.id,
+                        url: item.enclosures[0].url,
+                        title: item.title,
+                        artwork: item.itunes.image ,
+                        artist: rss.title,
+                        description: item.description,
+                        duration: item.itunes.duration,
+                        rssUrl: route.params.rssUrl,
+                    }
+                    return (
+                        <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />
+                    );
+                })
+            )}
+            <BottomGap />
         </ScrollView >
     )
 };

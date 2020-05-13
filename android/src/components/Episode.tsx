@@ -41,10 +41,8 @@ const Episode = ({ track , fromMyListScreen}) => {
                     playerStore.reset();
                     playerStore.add(track);
                     playerStore.play();
-
-                    myListStore.DeleteTrack(track);
                 }
-                } style={{ paddingLeft: 90 }} />
+                } style={{ paddingLeft: 80 }} />
                 {showNowPlaying}
             </View>
         </View>

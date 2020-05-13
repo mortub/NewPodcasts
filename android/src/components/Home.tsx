@@ -9,23 +9,24 @@ import { useRootStore } from '../contexts/RootStoreContext';
 const Home = ({ navigation }) =>{
     //the local store of the user's list
     const { myListStore } = useRootStore();
+    const { subStore } = useRootStore();
 
     useEffect(() => {
         myListStore.fromDbToLocalList()
-        .then(()=>{
-            
-        })
-       
+        subStore.fromDbToLocalSubsList()     
     },)
 
   
     return (
+        <>
         <TouchableOpacity 
         style={Styles.clickableOpacity}
          onPress ={()=> navigation.push('Search')} >
             <SearchIcon />
             <Text style={Styles.searchInHomeText}>Search Podcasts</Text>
         </TouchableOpacity>
+       
+        </>
     )
 }
 

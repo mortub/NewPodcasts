@@ -40,9 +40,9 @@ const MainNavigation = () => {
           <Tab.Screen name='MyList' component={MyListStackScreen} options={{
             tabBarIcon: ({color}) => <Icon name="menu-fold" size={30} color={color}/>
           }}/>
-          <Tab.Screen name='EpisodeStack' component={EpisodeStackScreen} options={{
+          {/* <Tab.Screen name='EpisodeStack' component={EpisodeStackScreen} options={{
             tabBarIcon: ({color}) => <Icon name="pptfile1" size={30} color={color}/>
-          }}/>
+          }}/> */}
         </Tab.Navigator>
         <View style={{
           position:'absolute',

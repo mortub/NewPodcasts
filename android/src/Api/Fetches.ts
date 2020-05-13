@@ -26,8 +26,9 @@ import * as rssParser from 'react-native-rss-parser';
 };
 
 //fetches a specific podcast
-export const fetchPodcast = (url) =>{   
-    return fetch(url)
+export const fetchPodcast = async (url) =>{ 
+    var rssToReturn;  
+     await fetch(url)
     .then((response) => {
         return response.text()
     })
@@ -35,9 +36,12 @@ export const fetchPodcast = (url) =>{
          return rssParser.parse(data)
      })
     .then((rss) => {
+        rssToReturn =rss;
         return rss;
     })
      .catch(err => {
         console.log(err);
     });
+
+    return rssToReturn;
 };

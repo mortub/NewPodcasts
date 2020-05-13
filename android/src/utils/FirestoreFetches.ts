@@ -88,9 +88,9 @@ export const addToSub = async(rssUrl, title, image)=>{
         .collection('subscribers')
         .add({
             email:user.email,
-            podcastTitle:title,
-            podcastImage:image,
-            podcastRssUrl:rssUrl,
+            title:title,
+            image:image,
+            rssUrl:rssUrl,
         })
     }       
 }
@@ -121,5 +121,27 @@ export const deleteFromSub = async (toDelete) =>{
     .delete()
 }
 
-//TODO: gets all of the current user's subs from 'subscribers' collection
-//export const showSubsFromSubscribers
+//gets all of the current user's subs from 'subscribers' collection
+export const showSubsFromSubscribers = async ()=>{
+    var l = [];
+    if (user) {
+        await firestore()
+            .collection('subscribers')
+            .get()
+            .then((podcasts) => {
+                podcasts.docs.map((doc) => {
+                    if (doc._data.email === user.email) {
+                        var sub = {
+                            email: doc._data.email,
+                            title: doc._data.title,
+                            rssUrl: doc._data.rssUrl,
+                            image: doc._data.image,
+
+                        }
+                        l.push(sub);
+                    }                 
+                })
+            })
+    }
+    return l;
+}

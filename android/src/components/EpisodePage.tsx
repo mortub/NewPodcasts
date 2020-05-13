@@ -10,7 +10,7 @@ import PodcastTitle from './PodcastTitle';
 import PodcastImage from './PodcastImage';
 
 //component to control and show information about the current episode that is playing
-const EpisodePage = (navigation) =>{
+const EpisodePage = () =>{
     const { playerStore } = useRootStore();
 
     //showing the icons of moving 10 sec back/forward in the current episode
@@ -21,14 +21,14 @@ const EpisodePage = (navigation) =>{
              onPress={()=>{
                 playerStore.skip10SecondsForward();
             }}>
-                <Icon name='forward' size={30} />
+                <Icon color='white' name='forward' size={30} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={{paddingLeft:300}}
+            <TouchableOpacity style={{paddingLeft:200}}
              onPress={()=>{
                 playerStore.skip10SecondsBack();
             }}>
-                <Icon name='banckward' size={30} />
+                <Icon color='white' name='banckward' size={30} />
             </TouchableOpacity>
         </View>
     );
@@ -37,9 +37,9 @@ const EpisodePage = (navigation) =>{
         <ScrollView >
             <PodcastTitle title={playerStore.currentTrack.artist} />
             <PodcastImage image={playerStore.currentTrack.artwork} />
-            <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.title}</Text>
+            <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.title}</Text>
             {icons}
-            <Text style={{ paddingTop: 20 }}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>
+            <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>
             <BottomGap />
         </ScrollView>       
     ):(
