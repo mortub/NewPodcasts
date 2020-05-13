@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState, useRef} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { observer } from "mobx-react";
@@ -6,6 +6,9 @@ import { observer } from "mobx-react";
 import { useRootStore } from '../contexts/RootStoreContext';
 import { Styles } from '../theme/Styles';
 import PlayerSlider from '../components/PlayerSlider';
+import SlideBarEpisode from './SlideBarEpisode';
+
+
 
 //a track player
 const TrackPlayerComponent = () => {
@@ -48,15 +51,17 @@ const TrackPlayerComponent = () => {
   ):(
     undefined
   );
+  const childRef = useRef();
 
   return (
-    <>
-    {titleShow}   
-    <View style={Styles.navBarLeftButton}>  
-      {showIcon}   
-      <PlayerSlider position={position} duration={duration} />  
-    </View>
-    </>
+    <TouchableOpacity onPress={() => childRef.current.toggleModal()}>
+      <SlideBarEpisode ref={childRef}/>
+      {titleShow}
+      <View style={Styles.navBarLeftButton}>
+        {showIcon}
+        <PlayerSlider position={position} duration={duration} />
+      </View>
+    </TouchableOpacity>
   );
 };
 

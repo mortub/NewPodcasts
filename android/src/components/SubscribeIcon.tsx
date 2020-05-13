@@ -1,19 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { addToSub, searchDocIdFromSub, deleteFromSub } from '../utils/FirestoreFetches';
+//components
+import { useRootStore } from '../contexts/RootStoreContext';
 
 const SubscribeIcon = ({rssUrl, title, image}) => {
+    //the local store of the user's subscribers list
+    const { subStore } = useRootStore();
     //to control the message given to the user
     const [added, setAdded] = useState(false);
-
-   //to delete a subscriber if the user chose it
-    const unSub = async() =>{
-        searchDocIdFromSub(title)
-        .then((docId)=>{
-            deleteFromSub(docId);
-        })
+    //to add to db+subStore
+    const sub = {
+        image: image,
+        rssUrl: rssUrl,
+        title: title,
     }
+
+    useEffect(()=>{
+        if(subStore.checkIsSubOnSubList(sub)){
+            setAdded(true);
+        } else{
+            setAdded(false)
+        }
+    },[subStore.subscribers])
+    
+
     //if the user added sub, show unsub bottom,
     //otherwise, show sub bottton
     var showSubOrUnsub = added?(
@@ -29,8 +40,8 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
       borderColor: '#FFE4E1'
         }}
         onPress={() => {
-            setAdded(false);
-            unSub();        
+            subStore.DeleteSub(sub);
+            setAdded(false);      
         }}
         >             
          <Icon name="deleteuser" size={30} style={{paddingTop: 10}}/>           
@@ -48,8 +59,8 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
       borderWidth: 1,
       borderColor: '#FFE4E1'
         }}
-        onPress={() => {         
-            addToSub(rssUrl, title, image);
+        onPress={() => {            
+            subStore.addSub(sub);
             setAdded(true);  
         }}
         >             

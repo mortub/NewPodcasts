@@ -51,6 +51,8 @@
     paddingTop:20,
     paddingBottom:20, 
     fontFamily:'Lobster-Regular',
+    color:'white',
+    textShadowColor:'black',textShadowRadius:50
     },
     searchInHomeText: {
       paddingLeft:20, 
