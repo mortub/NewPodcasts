@@ -1,21 +1,18 @@
 import React from 'react';
 import { View, Text,ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import FlashMessage from "react-native-flash-message";
 import { observer } from "mobx-react";
 //components
-import { useRootStore } from '../contexts/RootStoreContext';
-import { Styles } from '../theme/Styles';
-import { durationFormat } from '../utils/Calculations';
-import AddToListIcon from './AddToListIcon';
+import { useRootStore } from '../../contexts/RootStoreContext';
+import { Styles } from '../../theme/Styles';
+import { durationFormat } from '../../utils/Calculations';
+import AddToListIcon from '../atoms/AddToListIcon';
 
 
 //represents a podcast episode
 const Episode = ({ track , fromMyListScreen}) => {
-
+    //the local player store
     const { playerStore } = useRootStore();
-    const { myListStore } = useRootStore();
-
    //shows a text of 'now playing' if the current track is chosen
     var showNowPlaying = 
     playerStore.currentTrack? (

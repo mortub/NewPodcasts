@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 //components
-import { useRootStore } from '../contexts/RootStoreContext';
-
+import { useRootStore } from '../../contexts/RootStoreContext';
+//component for the adding/removing a podcast from subscribers list
 const SubscribeIcon = ({rssUrl, title, image}) => {
     //the local store of the user's subscribers list
     const { subStore } = useRootStore();
@@ -17,6 +17,7 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
     }
 
     useEffect(()=>{
+        //if subscribed to odcast, show unsub icon, else show the sub icon
         if(subStore.checkIsSubOnSubList(sub)){
             setAdded(true);
         } else{
@@ -40,6 +41,7 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
       borderColor: '#FFE4E1'
         }}
         onPress={() => {
+            //remove the subscription to this podcast
             subStore.DeleteSub(sub);
             setAdded(false);      
         }}
@@ -59,7 +61,8 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
       borderWidth: 1,
       borderColor: '#FFE4E1'
         }}
-        onPress={() => {            
+        onPress={() => {  
+            //add the podcast to subscribers         
             subStore.addSub(sub);
             setAdded(true);  
         }}

@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { View } from 'react-native';
 //Components
 import { Styles } from '../theme/Styles';
-import TrackPlayerComponent from '../components/TrackPlayerComponent';
+import TrackPlayerComponent from '../components/molecules/TrackPlayerComponent';
 
 //Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,13 +11,14 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStackScreen from './HomeStackScreen';
 import SubStackScreen from './SubStackScreen';
 import MyListStackScreen from './MyListStackScreen';
-import EpisodeStackScreen from './EpisodeStackScreen';
+
 
 
 
 const MainNavigation = () => {
   //a navigation system
   const Tab = createBottomTabNavigator();
+  
 
   return (
     <>
@@ -40,9 +41,6 @@ const MainNavigation = () => {
           <Tab.Screen name='MyList' component={MyListStackScreen} options={{
             tabBarIcon: ({color}) => <Icon name="menu-fold" size={30} color={color}/>
           }}/>
-          {/* <Tab.Screen name='EpisodeStack' component={EpisodeStackScreen} options={{
-            tabBarIcon: ({color}) => <Icon name="pptfile1" size={30} color={color}/>
-          }}/> */}
         </Tab.Navigator>
         <View style={{
           position:'absolute',

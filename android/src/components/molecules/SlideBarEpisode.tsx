@@ -1,9 +1,9 @@
 import React, {useState, forwardRef,useImperativeHandle } from 'react';
-import {Button, Text, View} from 'react-native';
+import {Button, View} from 'react-native';
 import Modal from 'react-native-modal';
-
-import EpisodePage from './EpisodePage';
-
+//components
+import EpisodePage from '../cells/EpisodePage';
+//component for the sliding effect for the episode's info
 const SlideBarEpisode = forwardRef((props, ref) => {
     const [isModalVisible, setModalVisible] = useState(false);
 
@@ -27,7 +27,7 @@ const SlideBarEpisode = forwardRef((props, ref) => {
           <Modal isVisible={isModalVisible}>
             <View style={{flex: 1}}>
             <Button color='black' title="Hide Episode" onPress={close} />
-            <EpisodePage />             
+            <EpisodePage/>             
             </View>
           </Modal>
         </View>

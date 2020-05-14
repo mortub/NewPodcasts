@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 //components
-import CarouselComponent from './CarouselComponent';
-import { fetchPodcasts } from '../Api/Fetches';
-import { Styles } from '../theme/Styles';
+import CarouselComponent from '../molecules/CarouselComponent';
+import { fetchPodcasts } from '../../Api/Fetches';
+import { Styles } from '../../theme/Styles';
 
 //showing the search results of the podcasts
 const SearchResults = ({ navigation }) => {

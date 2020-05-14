@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { observer } from "mobx-react";
 //components
-import Episode from './Episode';
-import { useRootStore } from '../contexts/RootStoreContext';
-import BottomGap from './BottomGap';
-import PodcastTitle from './PodcastTitle';
-import PodcastImage from './PodcastImage';
-import SubscribeIcon from './SubscribeIcon';
-import { fetchPodcast } from '../Api/Fetches';
+import Episode from '../molecules/Episode';
+import { useRootStore } from '../../contexts/RootStoreContext';
+import BottomGap from '../atoms/BottomGap';
+import PodcastTitle from '../atoms/PodcastTitle';
+import PodcastImage from '../atoms/PodcastImage';
+import SubscribeIcon from '../atoms/SubscribeIcon';
+import { fetchPodcast } from '../../Api/Fetches';
 
 //shows all of the episodes of a certain podcast
 const EpisodesView = ({ route, navigation }) =>{ 
+    //to know when fetching is done to show the podcast info
     const [isFetching, setFetching] = useState(true)
      //a constant to tell the <Episode /> what page he is on
      const fromMyListScreen = false;  
@@ -22,6 +23,7 @@ const EpisodesView = ({ route, navigation }) =>{
     //     image: undefined,
     //     description: '',
     // })
+    //keeps the info from the fetching
     const [rss, setRss ] = useState({});
 
     useEffect(()=>{  
@@ -44,43 +46,25 @@ const EpisodesView = ({ route, navigation }) =>{
         }
     },[])
   
-    //show all episodes of the podcast
-    const showEpisodesFunc = () => {
-            return rss.items.map(item => {
-                var track = {
-                    id: item.id,
-                    url: item.enclosures[0].url,
-                    title: item.title,
-                    artwork: item.itunes.image ,
-                    artist: rss.title,
-                    description: item.description,
-                    duration: item.itunes.duration,
-                    rssUrl: route.params.rssUrl,
-                }
-                return (
-                    <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />
-                );
-            })
-    }
-
+    //podcast title
     var showTitle = isFetching?(
         undefined     
     ) : (
         <PodcastTitle title= {rss.title}/>
     )
-
+    //podcast image
     var showImage = isFetching? (
         undefined
     ):(
         <PodcastImage image={rss.itunes.image}/>
     )
-
+    //podcast subsciption icon
     var showSubIcon= isFetching? (
         undefined
     ):(
         <SubscribeIcon rssUrl={route.params.rssUrl} title={rss.title} image={rss.itunes.image}/>
     )
-
+    //podcast description
     var showDescription = isFetching? (
         undefined
     ):(
