@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import RootStore from './RootStore';
 import { addToSub, searchDocIdFromSub,
      deleteFromSub, showSubsFromSubscribers } from '../utils/FirestoreFetches';
-
+//class to save the user's subscribers list
 class SubStore {
     rootStore: RootStore; c
     

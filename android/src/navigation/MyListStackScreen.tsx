@@ -1,6 +1,6 @@
 import React from 'react';
 //Components
-import MyList from '../components/MyList';
+import MyList from '../components/cells/MyList';
 //Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 

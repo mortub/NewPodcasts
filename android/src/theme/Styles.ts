@@ -68,7 +68,28 @@
       borderRadius: 10,
       borderWidth: 1,
       borderColor: '#FFE4E1'
-    }
+    },
+    podcastItemView: { 
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 2
+    },
+    podcastItemText:{ 
+      fontFamily: 'Lobster-Regular',
+      fontSize: 20,
+      textShadowColor: 'black',
+      textShadowRadius: 50,
+      color: 'white'
+    },
+   podcastitemImage: {
+     width: 360,
+     height: 50
+   },
     
       
   };

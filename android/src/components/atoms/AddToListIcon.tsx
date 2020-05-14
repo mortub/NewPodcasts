@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { observer } from "mobx-react";
 //components
-import { useRootStore } from '../contexts/RootStoreContext';
+import { useRootStore } from '../../contexts/RootStoreContext';
 
+//an icon for adding/removing from or to the list of episodes
 const AddToListIcon = ({ track,fromMyListScreen}) => {
     //the local store of the user's list
     const { myListStore } = useRootStore();
@@ -11,6 +12,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
     const [added, setAdded] = useState(false);
 
     useEffect(()=>{
+      //if the track was added, show an icon of remove, else show an icon of add
       if(myListStore.checkIsTrackOnList(track) === true){
         setAdded(true);
       }else{
@@ -18,6 +20,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
       }
     },[myListStore.myList])
 
+    //the icon to show
     var showAddOrDeleteFromList = added ? (
         <Icon name='minuscircle' size={30} style={{ paddingLeft: 20 }}
             onPress={() => {
@@ -35,6 +38,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
                 }} />
         )
 
+        //if we are on the list screen, show only the minus icon
         var show = fromMyListScreen? (
             <Icon name='minuscircle' size={30} style={{ paddingLeft: 20 }}
             onPress={() => {

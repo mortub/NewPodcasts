@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, SafeAreaView, ImageBackground, TouchableOpacity} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 //components
-import { Styles } from '../theme/Styles';
+import { Styles } from '../../theme/Styles';
 
 //component for showing different podcasts in a carousel
 //receives an array of podcasts and a function of what to do when pressing a podcast

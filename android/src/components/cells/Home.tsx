@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 //components
-import SearchIcon from './SearchIcon';
-import { Styles } from '../theme/Styles';
-import { useRootStore } from '../contexts/RootStoreContext';
+import SearchIcon from '../atoms/SearchIcon';
+import { Styles } from '../../theme/Styles';
+import { useRootStore } from '../../contexts/RootStoreContext';
 
 //represents the Home screen of the app
 const Home = ({ navigation }) =>{
     //the local store of the user's list
     const { myListStore } = useRootStore();
+    //the local store of the subscribers list
     const { subStore } = useRootStore();
 
     useEffect(() => {
+        //fetch bothe lists from db
         myListStore.fromDbToLocalList()
         subStore.fromDbToLocalSubsList()     
     },)

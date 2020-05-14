@@ -6,7 +6,7 @@ import { RootStoreProvider } from './android/src/contexts/RootStoreContext';
 import { rootStore } from './android/src/stores/RootStore';
 //navigation
 import MainNavigation from './android/src/navigation/MainNavigation';
-import SignUp from './android/src/components/SignUp';
+import SignUp from './android/src/components/cells/SignUp';
 import { addUserIfNeeded, onGoogleButtonPress } from './android/src/utils/Auth';
 
 const Auth = () => {

@@ -2,12 +2,13 @@ import React from 'react';
 import Slider from '@react-native-community/slider';
 import { observer } from "mobx-react";
 //components
-import { Styles } from '../theme/Styles';
-import { useRootStore } from '../contexts/RootStoreContext';
+import { Styles } from '../../theme/Styles';
+import { useRootStore } from '../../contexts/RootStoreContext';
 
 //component to show the slider in the trackplayer: moves with sound
 //receives the track duration+position 
 const PlayerSlider = ({ position, duration }) => {
+  //the local player store
     const { playerStore } = useRootStore();
     
     return (

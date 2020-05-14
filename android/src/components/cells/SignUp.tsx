@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 //components
-import { Styles } from '../theme/Styles';
+import { Styles } from '../../theme/Styles';
 
 //represents the sign up screen of the app
 const SignUp = ({onGoogleButtonPress}) =>{

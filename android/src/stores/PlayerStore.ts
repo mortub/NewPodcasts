@@ -45,6 +45,7 @@ class PlayerStore {
                 artist: track.artist,
                 description:track.description,
                 duration: track.duration,
+                rssUrl: track.rssUrl,
             });
     
         this.currentTrack = track;

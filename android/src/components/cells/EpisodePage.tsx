@@ -1,16 +1,20 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TouchableOpacityBase} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import { observer } from "mobx-react";
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 //components
-import { useRootStore } from '../contexts/RootStoreContext';
-import { Styles } from '../theme/Styles';
-import BottomGap from './BottomGap';
-import PodcastTitle from './PodcastTitle';
-import PodcastImage from './PodcastImage';
+import { useRootStore } from '../../contexts/RootStoreContext';
+import { Styles } from '../../theme/Styles';
+import BottomGap from '../atoms/BottomGap';
+import PodcastTitle from '../atoms/PodcastTitle';
+import PodcastImage from '../atoms/PodcastImage';
 
-//component to control and show information about the current episode that is playing
+//component to control and show information about the current episode that is playing.
 const EpisodePage = () =>{
+    //to be able to navigate from here
+    //const navigation = useNavigation();
+    //the local player store
     const { playerStore } = useRootStore();
 
     //showing the icons of moving 10 sec back/forward in the current episode
@@ -35,7 +39,15 @@ const EpisodePage = () =>{
     //if there is a current track chosen, show the image, title etc..
     var showEpisode = playerStore.currentTrack ? (
         <ScrollView >
-            <PodcastTitle title={playerStore.currentTrack.artist} />
+            <TouchableOpacity 
+            onPress={()=>{
+            // navigation.navigate('EpisodesView',{
+            //     rssUrl: playerStore.currentTrack.rssUrl
+            // })
+         }}
+         >
+                 <PodcastTitle title={playerStore.currentTrack.artist} />
+            </TouchableOpacity>          
             <PodcastImage image={playerStore.currentTrack.artwork} />
             <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.title}</Text>
             {icons}

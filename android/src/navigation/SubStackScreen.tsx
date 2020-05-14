@@ -1,6 +1,6 @@
 import React from 'react';
 //Components
-import Subscribers from '../components/Subscribers';
+import Subscribers from '../components/cells/Subscribers';
 //Navigation
 import { createStackNavigator } from '@react-navigation/stack';
 
