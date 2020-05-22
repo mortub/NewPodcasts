@@ -1,6 +1,7 @@
 import * as rssParser from 'react-native-rss-parser';
- //fetches all Podcasts that were searched
- export const fetchPodcasts = (search) => {
+import * as axios from 'axios';
+//fetches all Podcasts that were searched
+export const fetchPodcasts = (search) => {
     var toSearch = search.replace('', '+');
     return fetch(`https://itunes.apple.com/search?term=${toSearch}`)
         .then((response) => response.json())
@@ -26,7 +27,20 @@ import * as rssParser from 'react-native-rss-parser';
 };
 
 //fetches a specific podcast
-export const fetchPodcast = async (url) =>{ 
+export const fetchPodcast = async (url) => {
+    // var rssToReturn;
+    // await axios.get(url)
+    // .then((response) => {
+    //       return rssParser.parse(response.data)
+    //  })
+    //  .then((rss) => {
+    //       rssToReturn = rss;
+    //       return rss;
+    //  })
+    //  .catch(err => {
+    //        console.log(err);
+    //  });
+    // return rssToReturn;
     var rssToReturn;  
      await fetch(url)
     .then((response) => {

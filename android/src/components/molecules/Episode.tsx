@@ -17,7 +17,7 @@ const Episode = ({ track , fromMyListScreen}) => {
     var showNowPlaying = 
     playerStore.currentTrack? (
         playerStore.currentTrack.id === track.id ?
-            <Text style={{ fontSize: 12, paddingLeft: 10, paddingTop: 20, color: 'green' }}>now playing</Text>
+            <Text style={{ fontSize: 12,paddingTop:15, color: 'green', paddingEnd:5 }}>now playing</Text>
             :
             undefined
     ) : (
@@ -28,19 +28,27 @@ const Episode = ({ track , fromMyListScreen}) => {
         <View style={Styles.buttonStyle} key={track.id}>
             <View style={Styles.container}>
                 <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
-                <Text style={{ flexShrink: 1, paddingLeft: 5 ,}}>{track.title}</Text>            
+                <Text style={{paddingLeft: 40}}>{track.title}</Text>            
             </View>
             <View style={Styles.container}>
                 <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
-                <AddToListIcon track={track} fromMyListScreen={fromMyListScreen}/>
-                <Icon name='caretright' size={30} onPress={() => {
-                    playerStore.pause();
-                    playerStore.reset();
-                    playerStore.add(track);
-                    playerStore.play();
-                }
-                } style={{ paddingLeft: 80 }} />
-                {showNowPlaying}
+                <View style={{ flex: 5, flexDirection: 'row', alignItems:'flex-end' }}>
+                    <View style={{ flex: 3, flexDirection: 'row' }}>
+                        <Icon name='download' size={30} style={{ flex: 1, paddingLeft:10}} />
+                        <AddToListIcon track={track} fromMyListScreen={fromMyListScreen} />
+                        <Icon name='caretright' size={30} onPress={() => {
+                            playerStore.pause();
+                            playerStore.reset();
+                            playerStore.add(track);
+                            playerStore.play();
+                        }
+                        } style={{ flex: 1, }} />
+
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        {showNowPlaying}
+                    </View>
+                </View>               
             </View>
         </View>
     )

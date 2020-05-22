@@ -24,18 +24,14 @@ const CarouselComponent = ({results, pressOnAPodcast}) => {
     //each podcast will be a clickable image
     const _renderItem = ({item})=>{
         return (
-          <TouchableOpacity style={{
-              borderRadius: 5,
-              height: 200,              
-              marginLeft: 25,
-              marginRight: 25, }}
+          <TouchableOpacity style={Styles.carouselTouchableOpacity}
               key={item.id}
               onPress={() => {
                 var id = item.id;
                 pressOnAPodcast(id,carouselItems)
               }}
               >
-                <ImageBackground source={{ uri: item.image }} style={{ width: '100%', height: '100%' }}>
+                <ImageBackground source={{ uri: item.image }} style={{ flex:1}}>
                     <View 
                     style={{ 
                         position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center' 

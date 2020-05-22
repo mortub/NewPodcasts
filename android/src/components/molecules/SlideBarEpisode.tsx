@@ -27,7 +27,7 @@ const SlideBarEpisode = forwardRef((props, ref) => {
           <Modal isVisible={isModalVisible}>
             <View style={{flex: 1}}>
             <Button color='black' title="Hide Episode" onPress={close} />
-            <EpisodePage/>             
+            <EpisodePage />             
             </View>
           </Modal>
         </View>

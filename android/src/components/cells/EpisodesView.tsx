@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, Text } from 'react-native';
+import React, { useState, useEffect, lazy, Suspense} from 'react';
+import { ScrollView, Text, View } from 'react-native';
 import { observer } from "mobx-react";
 //components
 import Episode from '../molecules/Episode';
@@ -31,6 +31,7 @@ const EpisodesView = ({ route, navigation }) =>{
             //fetch podcast
             await fetchPodcast(route.params.rssUrl)
             .then((rss) => {
+                console.log('from episodesview, show rssurl', route.params.rssUrl)
                 setRss(rss);
                
             })
@@ -42,8 +43,9 @@ const EpisodesView = ({ route, navigation }) =>{
             })
         };
         if(isFetching){
-            fetching(); 
+            fetching();
         }
+                   
     },[])
   
     //podcast title
@@ -56,7 +58,8 @@ const EpisodesView = ({ route, navigation }) =>{
     var showImage = isFetching? (
         undefined
     ):(
-        <PodcastImage image={rss.itunes.image}/>
+         <PodcastImage image={rss.itunes.image}/>
+        
     )
     //podcast subsciption icon
     var showSubIcon= isFetching? (
@@ -72,11 +75,12 @@ const EpisodesView = ({ route, navigation }) =>{
     )
 
     return (      
-        <ScrollView style={{ paddingLeft: 10 }}>
+        <ScrollView style={{ paddingLeft: 10 }}>             
             {showTitle}
             {showImage}
             {showSubIcon}
             {showDescription}
+            <Suspense fallback={<div>Loading...</div>}>
             {isFetching? (
                 <Text>Loading...</Text>
             ):(              
@@ -96,6 +100,7 @@ const EpisodesView = ({ route, navigation }) =>{
                     );
                 })
             )}
+            </Suspense>
             <BottomGap />
         </ScrollView >
     )

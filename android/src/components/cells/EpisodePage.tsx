@@ -12,8 +12,6 @@ import PodcastImage from '../atoms/PodcastImage';
 
 //component to control and show information about the current episode that is playing.
 const EpisodePage = () =>{
-    //to be able to navigate from here
-    //const navigation = useNavigation();
     //the local player store
     const { playerStore } = useRootStore();
 
@@ -40,11 +38,11 @@ const EpisodePage = () =>{
     var showEpisode = playerStore.currentTrack ? (
         <ScrollView >
             <TouchableOpacity 
-            onPress={()=>{
-            // navigation.navigate('EpisodesView',{
-            //     rssUrl: playerStore.currentTrack.rssUrl
-            // })
-         }}
+        //     onPress={()=>{
+        //     navigation.navigate('EpisodesView',{
+        //         rssUrl: playerStore.currentTrack.rssUrl
+        //     })
+        //  }}
          >
                  <PodcastTitle title={playerStore.currentTrack.artist} />
             </TouchableOpacity>          
