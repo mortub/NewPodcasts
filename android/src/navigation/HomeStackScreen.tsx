@@ -17,7 +17,7 @@ const HomeStackScreen = () => {
         <HomeStack.Screen name="Home" component={Home} />
         <HomeStack.Screen name="MyList" component={MyList} options={{ title: 'My List' }} />
         <HomeStack.Screen name="Search" component={SearchResults} options={{ title: 'Search Podcasts' }} />
-        <HomeStack.Screen name="EpisodesView" component={EpisodesView} options={{ title: 'Episodes' }} />     
+        <HomeStack.Screen name="EpisodesView" component={EpisodesView} options={{ title: 'Episodes' }} />       
       </HomeStack.Navigator>
     )
   };

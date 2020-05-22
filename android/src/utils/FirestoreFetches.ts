@@ -98,13 +98,14 @@ export const addToSub = async(rssUrl, title, image)=>{
 //search for a doc id of a track from 'myList' collection
 //that belongs to this user
 export const searchDocIdFromSub = async (title)=>{
+    
     var toDelete = undefined;
     await firestore()
     .collection('subscribers')
     .get()
     .then((subscribers)=>{
         subscribers.docs.map((doc)=>{
-            if(doc._data.email === user.email && doc._data.podcastTitle === title){
+            if(doc._data.email === user.email && doc._data.title === title){    
                toDelete = doc.id;
             }
         })

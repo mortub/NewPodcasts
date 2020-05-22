@@ -22,7 +22,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
 
     //the icon to show
     var showAddOrDeleteFromList = added ? (
-        <Icon name='minuscircle' size={30} style={{ paddingLeft: 20 }}
+        <Icon name='minuscircle' size={30} style={{  flex: 1 }}
             onPress={() => {
                  //deleting the episode from my list
                  myListStore.DeleteTrack(track); 
@@ -30,7 +30,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
 
             }} />
     ) : (
-            <Icon name='pluscircle' size={30} style={{ paddingLeft: 20 }}
+            <Icon name='pluscircle' size={30} style={{ flex: 1}}
                 onPress={() => {
                     //adding the episode to my list
                     myListStore.addTrack(track);    
@@ -40,7 +40,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
 
         //if we are on the list screen, show only the minus icon
         var show = fromMyListScreen? (
-            <Icon name='minuscircle' size={30} style={{ paddingLeft: 20 }}
+            <Icon name='minuscircle' size={30} style={{  flex: 1 }}
             onPress={() => {
                 //adding the episode to my list
                 myListStore.DeleteTrack(track);  

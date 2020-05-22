@@ -24,6 +24,7 @@ const Subscibers = ({ navigation }) =>{
     }, [subStore.subscribers])
     //function for child: when pressingon podcast, navigate to its episodesview
     const navigateToEpisodesView = (sub)=>{
+        console.log('from subscribers, show rssurl', sub.rssUrl)
         navigation.navigate('EpisodesView',{
             rssUrl:sub.rssUrl
          });       

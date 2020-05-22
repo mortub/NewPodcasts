@@ -15,6 +15,7 @@ class SubStore {
     public subscribers :any[] = [];
 
      //checks if the given sub is on the subscribers list
+     //true if already in list, else false
      @action
      public checkIsSubOnSubList(sub){
          var num =this.subscribers.find((t) => t.rssUrl === sub.rssUrl)
@@ -30,13 +31,16 @@ class SubStore {
     @action
     public addSub(sub){
         //don't add track if already in list
-        if(this.checkIsSubOnSubList(sub)){
+        if(this.checkIsSubOnSubList(sub) === true){
             return;
         }
+        else{
+            this.subscribers.push(sub);
+            //adding to the database too
+           addToSub(sub.rssUrl, sub.title, sub.image);   
+        }
         
-        this.subscribers.push(sub);
-        //adding to the database too
-       addToSub(sub.rssUrl, sub.title, sub.image);   
+       
     }
 
     //deletes a subscriber from array

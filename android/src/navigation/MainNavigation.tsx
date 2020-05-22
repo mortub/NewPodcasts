@@ -41,6 +41,7 @@ const MainNavigation = () => {
           <Tab.Screen name='MyList' component={MyListStackScreen} options={{
             tabBarIcon: ({color}) => <Icon name="menu-fold" size={30} color={color}/>
           }}/>
+          
         </Tab.Navigator>
         <View style={{
           position:'absolute',

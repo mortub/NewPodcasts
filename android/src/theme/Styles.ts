@@ -1,7 +1,9 @@
+import { Dimensions } from 'react-native';
+const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 //cross-app style
  export const Styles = {
     navBarLeftButton: {
-      width: '100%',
       flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
@@ -17,6 +19,7 @@
           backgroundColor: 'white',
           overflow: 'hidden',
           flexDirection: 'row', 
+          justifyContent:'space-around'
       },
       buttonStyle: {
           padding: 20,
@@ -28,15 +31,16 @@
           marginBottom: 10,
       },
       episodeImage: {
-        width: 50, 
-        height: 50, 
+        width: deviceWidth/8,
+        height: deviceHeight/12,
         borderRadius: 50 / 2, 
         overflow: 'hidden',
         flexDirection: 'row',
+        marginLeft:20,
       },
       bigEpisodeImage: {
-        width: 200,
-        height: 200,
+        width: deviceWidth/2,
+        height: deviceHeight/3,
       },
       mainColor:{
         backgroundColor:'#FFE4E1',
@@ -52,7 +56,8 @@
     paddingBottom:20, 
     fontFamily:'Lobster-Regular',
     color:'white',
-    textShadowColor:'black',textShadowRadius:50
+    textShadowColor:'black',
+    textShadowRadius:50
     },
     searchInHomeText: {
       paddingLeft:20, 
@@ -87,9 +92,15 @@
       color: 'white'
     },
    podcastitemImage: {
-     width: 360,
-     height: 50
+    width: deviceWidth,
+    height:deviceHeight /12,
    },
+   carouselTouchableOpacity:{
+    borderRadius: 5,
+    height: deviceHeight /3, 
+    marginLeft: 25,
+    marginRight: 25, 
+   }
     
       
   };
