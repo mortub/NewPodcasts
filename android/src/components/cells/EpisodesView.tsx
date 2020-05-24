@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense} from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { observer } from "mobx-react";
 //components
 //import { useRootStore } from '../../contexts/RootStoreContext';
@@ -84,7 +84,7 @@ const EpisodesView = ({ route, navigation }) =>{
     )
 
     return (      
-        <ScrollView style={{ paddingLeft: 10 }}>     
+        <ScrollView >     
         <Suspense fallback={<Text>Loading...</Text>}>        
             {showTitle}
             {showImage}

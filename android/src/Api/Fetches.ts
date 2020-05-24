@@ -1,5 +1,4 @@
 import * as rssParser from 'react-native-rss-parser';
-import * as axios from 'axios';
 //fetches all Podcasts that were searched
 export const fetchPodcasts = (search) => {
     var toSearch = search.replace('', '+');

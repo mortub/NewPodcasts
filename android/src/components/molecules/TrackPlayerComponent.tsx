@@ -6,10 +6,10 @@ import { observer } from "mobx-react";
 import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import PlayerSlider from '../atoms/PlayerSlider';
+import SlideBarEpisode from './SlideBarEpisode';
+
 //a track player
 const TrackPlayerComponent = () => {
-  //lazy loading
-  const SlideBarEpisode = React.lazy(() => import('./SlideBarEpisode'));
   //the local player store
   const { playerStore } = useRootStore();
   //for extracting the duration+position from the local player
@@ -48,7 +48,7 @@ const TrackPlayerComponent = () => {
   )
   //showing the title of the current episode
   var titleShow = playerStore.getCurrentTrack()? (
-    <Text ellipsizeMode='tail' numberOfLines={2}>{playerStore.getCurrentTrack().title}</Text>
+    <Text ellipsizeMode='tail' numberOfLines={1}>{playerStore.getCurrentTrack().title}</Text>
   ):(
     undefined
   );
@@ -56,9 +56,7 @@ const TrackPlayerComponent = () => {
 
   return (
     <TouchableOpacity onPress={() => childRef.current.toggleModal()}>
-      <Suspense fallback={<Text>Loading...</Text>}>
         <SlideBarEpisode ref={childRef} />
-        </Suspense>
         {titleShow}
         <View style={Styles.navBarLeftButton}>
           {showIcon}
