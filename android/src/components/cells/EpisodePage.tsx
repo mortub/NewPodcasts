@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import { observer } from "mobx-react";
 import Icon from 'react-native-vector-icons/AntDesign';
-import { useNavigation } from '@react-navigation/native';
 //components
 import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import BottomGap from '../atoms/BottomGap';
-import PodcastTitle from '../atoms/PodcastTitle';
-import PodcastImage from '../atoms/PodcastImage';
+//import PodcastTitle from '../atoms/PodcastTitle';
+//import PodcastImage from '../atoms/PodcastImage';
 
 //component to control and show information about the current episode that is playing.
 const EpisodePage = () =>{
+    //lazy loading
+    const PodcastTitle = React.lazy(() => import('../atoms/PodcastTitle'));
+    const PodcastImage = React.lazy(() => import('../atoms/PodcastImage'));
     //the local player store
     const { playerStore } = useRootStore();
 
@@ -37,16 +39,10 @@ const EpisodePage = () =>{
     //if there is a current track chosen, show the image, title etc..
     var showEpisode = playerStore.currentTrack ? (
         <ScrollView >
-            <TouchableOpacity 
-        //     onPress={()=>{
-        //     navigation.navigate('EpisodesView',{
-        //         rssUrl: playerStore.currentTrack.rssUrl
-        //     })
-        //  }}
-         >
-                 <PodcastTitle title={playerStore.currentTrack.artist} />
-            </TouchableOpacity>          
-            <PodcastImage image={playerStore.currentTrack.artwork} />
+            <Suspense fallback={<Text>Loading...</Text>}>
+                <PodcastTitle title={playerStore.currentTrack.artist} />
+                <PodcastImage image={playerStore.currentTrack.artwork} />
+            </Suspense>
             <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.title}</Text>
             {icons}
             <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>

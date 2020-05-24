@@ -1,4 +1,4 @@
-import React, { useState, useRef} from 'react';
+import React, { useState, useRef, Suspense} from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { observer } from "mobx-react";
@@ -6,10 +6,10 @@ import { observer } from "mobx-react";
 import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import PlayerSlider from '../atoms/PlayerSlider';
-import SlideBarEpisode from './SlideBarEpisode';
-
 //a track player
 const TrackPlayerComponent = () => {
+  //lazy loading
+  const SlideBarEpisode = React.lazy(() => import('./SlideBarEpisode'));
   //the local player store
   const { playerStore } = useRootStore();
   //for extracting the duration+position from the local player
@@ -56,12 +56,14 @@ const TrackPlayerComponent = () => {
 
   return (
     <TouchableOpacity onPress={() => childRef.current.toggleModal()}>
-      <SlideBarEpisode ref={childRef} />
-      {titleShow}
-      <View style={Styles.navBarLeftButton}>
-        {showIcon}
-        <PlayerSlider position={position} duration={duration} />
-      </View>
+      <Suspense fallback={<Text>Loading...</Text>}>
+        <SlideBarEpisode ref={childRef} />
+        </Suspense>
+        {titleShow}
+        <View style={Styles.navBarLeftButton}>
+          {showIcon}
+          <PlayerSlider position={position} duration={duration} />
+        </View>     
     </TouchableOpacity>
   );
 };
