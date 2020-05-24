@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { ScrollView, Text } from 'react-native';
 import { observer } from "mobx-react";
 //components
-import Episode from '../molecules/Episode';
+//import Episode from '../molecules/Episode';
 import { useRootStore } from '../../contexts/RootStoreContext';
 import BottomGap from '../atoms/BottomGap';
 import { Styles } from '../../theme/Styles';
@@ -10,6 +10,8 @@ import { Styles } from '../../theme/Styles';
 
 //represents the reserved podcast episodes of a user
 const MyList = ({ route }) =>{
+    //lazy loading
+    const Episode = React.lazy(() => import('../molecules/Episode'));
     //the local store of the user's list
     const { myListStore } = useRootStore();
     //the list to render
@@ -28,7 +30,9 @@ const MyList = ({ route }) =>{
     //shows all the episodes of the hearing list
     var showList= list.length !== 0 ?(
         list.map((track)=>{
-            return <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen}/> 
+            return (              
+                <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />              
+            )           
         })
     ):(
         <Text style={Styles.podcastTitle} >Nothing on the list</Text>
@@ -36,7 +40,9 @@ const MyList = ({ route }) =>{
 
     return (
         <ScrollView>
+            <Suspense fallback={<Text>Loading...</Text>}>
             {showList}
+            </Suspense> 
             <BottomGap />
         </ScrollView>
     )

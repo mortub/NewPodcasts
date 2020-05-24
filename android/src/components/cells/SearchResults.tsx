@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Text, View, ScrollView } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 //components
-import CarouselComponent from '../molecules/CarouselComponent';
+//import CarouselComponent from '../molecules/CarouselComponent';
 import { fetchPodcasts } from '../../Api/Fetches';
 import { Styles } from '../../theme/Styles';
 
 //showing the search results of the podcasts
 const SearchResults = ({ navigation }) => {
+    //lazy loading
+    const CarouselComponent = React.lazy(() => import('../molecules/CarouselComponent'));
     //the search term
     const [search, setSearch] = useState('');
     //the podcasts who came up as a result of the search
@@ -28,10 +30,10 @@ const SearchResults = ({ navigation }) => {
     //function sent to child - carousel. 
     //when pressing a podcast, navigate to its episodes
     const pressOnAPodcast = async (id,carouselItems) =>{
-        carouselItems.map((pod)=>{
+        carouselItems.map(async(pod)=>{
             if(pod.id === id){
                 navigation.navigate('EpisodesView',{
-                    rssUrl:pod.url
+                    rssUrl: pod.url
                  });                    
             }
         })
@@ -39,7 +41,12 @@ const SearchResults = ({ navigation }) => {
 
    //what to show the user as a result of the search
     var returnCarousel = search !== ''?(
-        searchResults.length > 0 ? <CarouselComponent results={searchResults} pressOnAPodcast={pressOnAPodcast}/>
+        searchResults.length > 0 ? 
+        (
+            <Suspense fallback={<Text>Loading...</Text>}>
+                <CarouselComponent results={searchResults} pressOnAPodcast={pressOnAPodcast} />
+            </Suspense>
+        )
         : (
         <View >
            <Text style={Styles.podcastTitle} >No Results</Text>

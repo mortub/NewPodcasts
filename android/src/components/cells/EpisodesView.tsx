@@ -1,17 +1,19 @@
-import React, { useState, useEffect, lazy, Suspense} from 'react';
+import React, { useState, useEffect, Suspense} from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { observer } from "mobx-react";
 //components
-import Episode from '../molecules/Episode';
-import { useRootStore } from '../../contexts/RootStoreContext';
+//import { useRootStore } from '../../contexts/RootStoreContext';
 import BottomGap from '../atoms/BottomGap';
-import PodcastTitle from '../atoms/PodcastTitle';
-import PodcastImage from '../atoms/PodcastImage';
-import SubscribeIcon from '../atoms/SubscribeIcon';
 import { fetchPodcast } from '../../Api/Fetches';
 
 //shows all of the episodes of a certain podcast
 const EpisodesView = ({ route, navigation }) =>{ 
+    //lazy loading
+    const Episode = React.lazy(() => import('../molecules/Episode'));
+    const PodcastTitle = React.lazy(() => import('../atoms/PodcastTitle'));
+    const PodcastImage = React.lazy(() => import('../atoms/PodcastImage'));
+    const SubscribeIcon = React.lazy(() => import('../atoms/SubscribeIcon'));
+
     //to know when fetching is done to show the podcast info
     const [isFetching, setFetching] = useState(true)
      //a constant to tell the <Episode /> what page he is on
@@ -27,11 +29,11 @@ const EpisodesView = ({ route, navigation }) =>{
     const [rss, setRss ] = useState({});
 
     useEffect(()=>{  
+        //setFetching(true);
         async function fetching(){
             //fetch podcast
             await fetchPodcast(route.params.rssUrl)
             .then((rss) => {
-                console.log('from episodesview, show rssurl', route.params.rssUrl)
                 setRss(rss);
                
             })
@@ -42,30 +44,37 @@ const EpisodesView = ({ route, navigation }) =>{
                 console.log(err)
             })
         };
-        if(isFetching){
+        
+
+        if (isFetching) {
             fetching();
         }
                    
-    },[])
+    },[route.params.rssUrl])
   
     //podcast title
     var showTitle = isFetching?(
         undefined     
     ) : (
         <PodcastTitle title= {rss.title}/>
+
     )
     //podcast image
     var showImage = isFetching? (
         undefined
     ):(
+
          <PodcastImage image={rss.itunes.image}/>
+
         
     )
     //podcast subsciption icon
     var showSubIcon= isFetching? (
         undefined
     ):(
+
         <SubscribeIcon rssUrl={route.params.rssUrl} title={rss.title} image={rss.itunes.image}/>
+
     )
     //podcast description
     var showDescription = isFetching? (
@@ -75,12 +84,12 @@ const EpisodesView = ({ route, navigation }) =>{
     )
 
     return (      
-        <ScrollView style={{ paddingLeft: 10 }}>             
+        <ScrollView style={{ paddingLeft: 10 }}>     
+        <Suspense fallback={<Text>Loading...</Text>}>        
             {showTitle}
             {showImage}
             {showSubIcon}
-            {showDescription}
-            <Suspense fallback={<div>Loading...</div>}>
+            {showDescription}           
             {isFetching? (
                 <Text>Loading...</Text>
             ):(              
@@ -99,9 +108,9 @@ const EpisodesView = ({ route, navigation }) =>{
                         <Episode track={track} key={track.id} fromMyListScreen={fromMyListScreen} />
                     );
                 })
-            )}
-            </Suspense>
+            )}           
             <BottomGap />
+            </Suspense>
         </ScrollView >
     )
 };
