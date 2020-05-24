@@ -4,7 +4,6 @@ import { TouchableOpacity, Text } from 'react-native';
 //import SearchIcon from '../atoms/SearchIcon';
 import { Styles } from '../../theme/Styles';
 import { useRootStore } from '../../contexts/RootStoreContext';
-
 //represents the Home screen of the app
 const Home = ({ navigation }) =>{
     //lazy loading

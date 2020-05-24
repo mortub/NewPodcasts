@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
-import { View, Text, ImageBackground } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+import { View, Text } from 'react-native';
 import { observer } from "mobx-react";
 //components
 import { useRootStore } from '../../contexts/RootStoreContext';
@@ -13,13 +12,18 @@ import { durationFormat } from '../../utils/Calculations';
 const Episode = ({ track, fromMyListScreen }) => {
     //lazy loading
     const AddToListIcon = React.lazy(() => import('../atoms/AddToListIcon'));
+    const PlayEpisodeIcon = React.lazy(() => import('../atoms/playEpisodeIcon'));
+    const DownloadEpisodeIcon = React.lazy(() => import('../atoms/DownloadEpisodeIcon'));
+    const SmallEpisodeImage = React.lazy(() => import('../atoms/SmallEpisodeImage'));
+    const SmallEpisodeTitle = React.lazy(() => import('../atoms/SmallEpisodeTitle'));
+    const NowPlayingEpisodeText = React.lazy(() => import('../atoms/NowPlayingEpisodeText'));
     //the local player store
     const { playerStore } = useRootStore();
     //shows a text of 'now playing' if the current track is chosen
     var showNowPlaying =
         playerStore.currentTrack ? (
             playerStore.currentTrack.id === track.id ?
-                <Text style={{ fontSize: 12, paddingTop: 15, color: 'green', paddingEnd: 5 }}>now playing</Text>
+                <NowPlayingEpisodeText />
                 :
                 undefined
         ) : (
@@ -28,31 +32,25 @@ const Episode = ({ track, fromMyListScreen }) => {
 
     return (
         <View style={Styles.buttonStyle} key={track.id}>
-            <View style={Styles.container}>
-                <ImageBackground source={{ uri: track.artwork }} style={Styles.episodeImage} />
-                <Text style={{ paddingLeft: 40 }}>{track.title}</Text>
-            </View>
-            <View style={Styles.container}>
-                <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
-                <View style={{ flex: 5, flexDirection: 'row', alignItems: 'flex-end' }}>
-                    <View style={{ flex: 3, flexDirection: 'row' }}>
-                        <Icon name='download' size={30} style={{ flex: 1, paddingLeft: 10 }} />
-                        <Suspense fallback={<Text>Loading...</Text>}>
+            <Suspense fallback={<Text>Loading...</Text>}>
+                <View style={Styles.container}>
+                    <SmallEpisodeImage track={track} />
+                    <SmallEpisodeTitle track={track} />
+                </View>
+                <View style={Styles.container}>
+                    <Text style={{ paddingTop: 10 }}> {durationFormat(track.duration)}</Text>
+                    <View style={{ flex: 5, flexDirection: 'row', alignItems: 'flex-end' }}>
+                        <View style={{ flex: 3, flexDirection: 'row' }}>
+                            <DownloadEpisodeIcon />
                             <AddToListIcon track={track} fromMyListScreen={fromMyListScreen} />
-                        </Suspense>
-                        <Icon name='caretright' size={30} onPress={() => {
-                            playerStore.pause();
-                            playerStore.reset();
-                            playerStore.add(track);
-                            playerStore.play();
-                        }
-                        } style={{ flex: 1, }} />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        {showNowPlaying}
+                            <PlayEpisodeIcon track={track} />
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            {showNowPlaying}
+                        </View>
                     </View>
                 </View>
-            </View>
+            </Suspense>
         </View>
     )
 }
