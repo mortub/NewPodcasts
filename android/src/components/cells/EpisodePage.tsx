@@ -6,8 +6,6 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import BottomGap from '../atoms/BottomGap';
-//import PodcastTitle from '../atoms/PodcastTitle';
-//import PodcastImage from '../atoms/PodcastImage';
 
 //component to control and show information about the current episode that is playing.
 const EpisodePage = () =>{
@@ -17,25 +15,6 @@ const EpisodePage = () =>{
     //the local player store
     const { playerStore } = useRootStore();
 
-    //showing the icons of moving 10 sec back/forward in the current episode
-    var icons = (
-        <View style={{flex: 1,
-            flexDirection: 'row', padding:10}}>        
-            <TouchableOpacity style={{paddingLeft:10}}
-             onPress={()=>{
-                playerStore.skip10SecondsForward();
-            }}>
-                <Icon color='white' name='forward' size={30} />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={{paddingLeft:200}}
-             onPress={()=>{
-                playerStore.skip10SecondsBack();
-            }}>
-                <Icon color='white' name='banckward' size={30} />
-            </TouchableOpacity>
-        </View>
-    );
     //if there is a current track chosen, show the image, title etc..
     var showEpisode = playerStore.currentTrack ? (
         <ScrollView >
@@ -44,7 +23,6 @@ const EpisodePage = () =>{
                 <PodcastImage image={playerStore.currentTrack.artwork} />
             </Suspense>
             <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.title}</Text>
-            {icons}
             <Text style={{ paddingTop: 20, color:'white' }}>{playerStore.currentTrack.description.replace(/<\/?[^>]+>/gi, '')}</Text>
             <BottomGap />
         </ScrollView>       

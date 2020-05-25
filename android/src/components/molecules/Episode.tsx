@@ -5,14 +5,13 @@ import { observer } from "mobx-react";
 import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import { durationFormat } from '../../utils/Calculations';
-//import AddToListIcon from '../atoms/AddToListIcon';
 
 
 //represents a podcast episode
 const Episode = ({ track, fromMyListScreen }) => {
     //lazy loading
     const AddToListIcon = React.lazy(() => import('../atoms/AddToListIcon'));
-    const PlayEpisodeIcon = React.lazy(() => import('../atoms/playEpisodeIcon'));
+    const PlayEpisodeIcon = React.lazy(() => import('../atoms/PlayEpisodeIcon'));
     const DownloadEpisodeIcon = React.lazy(() => import('../atoms/DownloadEpisodeIcon'));
     const SmallEpisodeImage = React.lazy(() => import('../atoms/SmallEpisodeImage'));
     const SmallEpisodeTitle = React.lazy(() => import('../atoms/SmallEpisodeTitle'));
