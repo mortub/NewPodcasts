@@ -21,6 +21,7 @@ const PlayerSlider = ({ position, duration }) => {
             step={1}
             disabled={false}
             onValueChange ={ val=>{
+              console.log(val)
               playerStore.seekTo(val);
             }}
             onSlidingComplete={ val=>{             

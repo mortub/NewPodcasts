@@ -1,4 +1,4 @@
-import React, { useState, useRef, Suspense} from 'react';
+import React, { useState, useRef, useEffect, Suspense } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { observer } from "mobx-react";
@@ -7,6 +7,10 @@ import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import PlayerSlider from '../atoms/PlayerSlider';
 import SlideBarEpisode from './SlideBarEpisode';
+import PlayForwardIcon from '../atoms/PlayForwardIcon';
+import PlayBackwardIcon from '../atoms/PlayBackwardIcon';
+import TimePassedText from '../atoms/TimePassedText';
+import TimeLeftText from '../atoms/TimeLeftText';
 
 //a track player
 const TrackPlayerComponent = () => {
@@ -16,53 +20,82 @@ const TrackPlayerComponent = () => {
   const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
 
-  //at the beginnig setting the duration+position from the local player
-  playerStore.getDuration().then(
-    (duration) => {
-      setDuration(duration)
-    }
-  );
-  playerStore.getPosition().then(
-    (position) => {
-      setPosition(position)
-    }
-  );
+  useEffect(() => {
 
-  //the icon that needs to be shown: play/pause
-  var showIcon = playerStore.isPlaying ?
-  (
-    <TouchableOpacity  onPress={() =>{
-      playerStore.pause();
+    let secTimer = setInterval(() => {
       playerStore.getPosition().then(
         (position) => {
           setPosition(position)
         }
       );
-    } }>
-      <Icon name='pausecircle' size={30} />
-    </TouchableOpacity>
-  ) : (
-    <TouchableOpacity onPress={() => playerStore.play()}>
-      <Icon name='caretright' size={30} />
-    </TouchableOpacity>
-  )
+    }, 2000)
+
+    return () => clearInterval(secTimer);
+
+  }, [position]);
+
+
+
+  useEffect(() => {
+    //at the beginnig setting the duration+position from the local player
+    playerStore.getDuration().then(
+      (duration) => {
+        setDuration(duration)
+      }
+    );
+    playerStore.getPosition().then(
+      (position) => {
+        setPosition(position)
+      }
+    );
+
+  }, [])
+
+  //the icon that needs to be shown: play/pause
+  var showIcon = playerStore.isPlaying ?
+    (
+      <TouchableOpacity onPress={() => {
+        playerStore.pause();
+        playerStore.getPosition().then(
+          (position) => {
+            setPosition(position)
+          }
+        );
+      }}>
+        <Icon name='pausecircle' size={30} />
+      </TouchableOpacity>
+    ) : (
+      <TouchableOpacity onPress={() => {
+        playerStore.play();
+      }}>
+        <Icon name='caretright' size={30} />
+      </TouchableOpacity>
+    )
   //showing the title of the current episode
-  var titleShow = playerStore.getCurrentTrack()? (
+  var titleShow = playerStore.getCurrentTrack() ? (
     <Text ellipsizeMode='tail' numberOfLines={1}>{playerStore.getCurrentTrack().title}</Text>
-  ):(
-    undefined
-  );
+  ) : (
+      undefined
+    );
   const childRef = useRef();
 
   return (
-    <TouchableOpacity onPress={() => childRef.current.toggleModal()}>
+    <>
+      <TouchableOpacity onPress={() => childRef.current.toggleModal()}>
         <SlideBarEpisode ref={childRef} />
         {titleShow}
         <View style={Styles.navBarLeftButton}>
           {showIcon}
           <PlayerSlider position={position} duration={duration} />
-        </View>     
-    </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <TimePassedText position={position} />
+        <PlayForwardIcon />
+        <PlayBackwardIcon />
+        <TimeLeftText duration={duration} position={position} />
+      </View>
+    </>
   );
 };
 

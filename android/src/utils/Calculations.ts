@@ -15,3 +15,8 @@ export const durationFormat = (totalSeconds) => {
     }
     return new Date(totalSeconds * 1000).toISOString().substr(11, 8);
 };
+
+export const timePassedFormat = (seconds) =>{
+    var time = seconds.toString().split(".");
+    return new Date(time[0] * 1000).toISOString().substr(11, 8);
+}
