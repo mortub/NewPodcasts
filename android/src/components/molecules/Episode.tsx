@@ -5,17 +5,24 @@ import { observer } from "mobx-react";
 import { useRootStore } from '../../contexts/RootStoreContext';
 import { Styles } from '../../theme/Styles';
 import { durationFormat } from '../../utils/Calculations';
+ //lazy loading
+ import AddToListIcon from '../atoms/AddToListIcon';
+ import PlayEpisodeIcon from '../atoms/PlayEpisodeIcon';
+ import DownloadEpisodeIcon from '../atoms/DownloadEpisodeIcon';
+ import SmallEpisodeImage from '../atoms/SmallEpisodeImage';
+ import SmallEpisodeTitle from '../atoms/SmallEpisodeTitle';
+ import NowPlayingEpisodeText from '../atoms/NowPlayingEpisodeText';
 
 
 //represents a podcast episode
 const Episode = ({ track, fromMyListScreen }) => {
     //lazy loading
-    const AddToListIcon = React.lazy(() => import('../atoms/AddToListIcon'));
-    const PlayEpisodeIcon = React.lazy(() => import('../atoms/PlayEpisodeIcon'));
-    const DownloadEpisodeIcon = React.lazy(() => import('../atoms/DownloadEpisodeIcon'));
-    const SmallEpisodeImage = React.lazy(() => import('../atoms/SmallEpisodeImage'));
-    const SmallEpisodeTitle = React.lazy(() => import('../atoms/SmallEpisodeTitle'));
-    const NowPlayingEpisodeText = React.lazy(() => import('../atoms/NowPlayingEpisodeText'));
+    // const AddToListIcon = React.lazy(() => import('../atoms/AddToListIcon'));
+    // const PlayEpisodeIcon = React.lazy(() => import('../atoms/PlayEpisodeIcon'));
+    // const DownloadEpisodeIcon = React.lazy(() => import('../atoms/DownloadEpisodeIcon'));
+    // const SmallEpisodeImage = React.lazy(() => import('../atoms/SmallEpisodeImage'));
+    // const SmallEpisodeTitle = React.lazy(() => import('../atoms/SmallEpisodeTitle'));
+    // const NowPlayingEpisodeText = React.lazy(() => import('../atoms/NowPlayingEpisodeText'));
     //the local player store
     const { playerStore } = useRootStore();
     //shows a text of 'now playing' if the current track is chosen
@@ -31,7 +38,7 @@ const Episode = ({ track, fromMyListScreen }) => {
 
     return (
         <View style={Styles.buttonStyle} key={track.id}>
-            <Suspense fallback={<Text>Loading...</Text>}>
+            {/* <Suspense fallback={<Text>Loading...</Text>}> */}
                 <View style={Styles.container}>
                     <SmallEpisodeImage track={track} />
                     <SmallEpisodeTitle track={track} />
@@ -49,7 +56,7 @@ const Episode = ({ track, fromMyListScreen }) => {
                         </View>
                     </View>
                 </View>
-            </Suspense>
+            {/* </Suspense> */}
         </View>
     )
 }
