@@ -26,23 +26,12 @@ export const fetchPodcasts = (search) => {
 };
 
 //fetches a specific podcast
-export const fetchPodcast = async (url) => {
-    // var rssToReturn;
-    // await axios.get(url)
-    // .then((response) => {
-    //       return rssParser.parse(response.data)
-    //  })
-    //  .then((rss) => {
-    //       rssToReturn = rss;
-    //       return rss;
-    //  })
-    //  .catch(err => {
-    //        console.log(err);
-    //  });
-    // return rssToReturn;
-    var rssToReturn;  
-     await fetch(url)
+export const fetchPodcast = async (url, page) => {
+    var rssToReturn; 
+    var urlToFetch =  url.concat(`/page/${page}`);
+     await fetch(urlToFetch)
     .then((response) => {
+        console.log('fetched url:',urlToFetch )
         return response.text()
     })
     .then((data) => {
@@ -57,4 +46,27 @@ export const fetchPodcast = async (url) => {
     });
 
     return rssToReturn;
+};
+
+//fetches the most popular podcasts in the US
+export const fetchPopularPodcasts = ()=>{
+    return fetch('https://rss.itunes.apple.com/api/v1/us/podcasts/top-podcasts/all/10/explicit.json')
+        .then((response) => response.json())
+        .then((json) => {
+            var tmpResults = [];
+            json.feed.results.map(pod => {
+                //returning only podcasts from API            
+                    var podcastInfo = {
+                        id: pod.id,
+                        image: pod.artworkUrl100,
+                        name: pod.name,
+                        url: pod.url,
+                    }
+                    tmpResults.push(podcastInfo);               
+            });
+            return tmpResults;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 };

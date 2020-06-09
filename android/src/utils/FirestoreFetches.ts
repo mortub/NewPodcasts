@@ -3,10 +3,14 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 //gets the current user that uses the app
-const user = auth().currentUser;
+const getCurrentUser = ()=>{
+    const user = auth().currentUser;
+    return user;
+}
 
 //adds to 'myList' collection a track of a user
 export const addToList = async (track) => {
+    const user = getCurrentUser();
     if (user) {
         await firestore()
             .collection('myList')
@@ -36,6 +40,7 @@ export const deleteFromList = async (toDelete) => {
 //search for a doc id of a track from 'myList' collection
 //that belongs to this user
 export const searchDocIdFromList = async (track) => {
+    const user = getCurrentUser();
     var toReturn = undefined;
     if (user) {
         await firestore()
@@ -54,6 +59,7 @@ export const searchDocIdFromList = async (track) => {
 
 //gets all of the current user's episodes from 'myList' collection
 export const showEpisodesFromMyList = async () => {
+    const user = getCurrentUser();
     var l = [];
     if (user) {
         await firestore()
@@ -82,7 +88,8 @@ export const showEpisodesFromMyList = async () => {
 }
 
 //to add a subscriber to the collection 'subscribers'
-export const addToSub = async(rssUrl, title, image)=>{       
+export const addToSub = async(rssUrl, title, image)=>{    
+    const user = getCurrentUser();   
     if(user){
         await firestore()
         .collection('subscribers')
@@ -98,7 +105,7 @@ export const addToSub = async(rssUrl, title, image)=>{
 //search for a doc id of a track from 'myList' collection
 //that belongs to this user
 export const searchDocIdFromSub = async (title)=>{
-    
+    const user = getCurrentUser();   
     var toDelete = undefined;
     await firestore()
     .collection('subscribers')
@@ -124,6 +131,7 @@ export const deleteFromSub = async (toDelete) =>{
 
 //gets all of the current user's subs from 'subscribers' collection
 export const showSubsFromSubscribers = async ()=>{
+    const user = getCurrentUser();
     var l = [];
     if (user) {
         await firestore()
