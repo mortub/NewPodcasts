@@ -1,13 +1,12 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { observer } from "mobx-react";
 //components
-import { useRootStore } from '../../contexts/RootStoreContext';
+import { Styles } from '../../theme/Styles';
 
 //component for the search icon
 const SearchIcon = ()=>{
     return(
-        <Icon name="search1" size={30} style={{paddingTop: 10, paddingLeft: 10}}/>
+        <Icon name="search1" size={30} color={Styles.secondColor} style={{paddingTop: 10, paddingLeft: 10}}/>
     )
 };
 

@@ -15,13 +15,12 @@ const PlayerSlider = ({ position, duration }) => {
         <Slider
             minimumValue={0}
             maximumValue={duration}
-            thumbTintColor='#FFFFFF'
-            minimumTrackTintColor='#000000'
-            maximumTrackTintColor='#808080'
+            thumbTintColor={Styles.secondColor}
+            minimumTrackTintColor={Styles.secondColor}
+            maximumTrackTintColor={Styles.secondColor}
             step={1}
             disabled={false}
             onValueChange ={ val=>{
-              console.log(val)
               playerStore.seekTo(val);
             }}
             onSlidingComplete={ val=>{             

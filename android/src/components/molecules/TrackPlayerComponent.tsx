@@ -62,18 +62,18 @@ const TrackPlayerComponent = () => {
           }
         );
       }}>
-        <Icon name='pausecircle' size={30} />
+        <Icon name='pausecircle' size={30} color={Styles.secondColor}/>
       </TouchableOpacity>
     ) : (
       <TouchableOpacity onPress={() => {
         playerStore.play();
       }}>
-        <Icon name='caretright' size={30} />
+        <Icon name='caretright' size={30} color={Styles.secondColor}/>
       </TouchableOpacity>
     )
   //showing the title of the current episode
   var titleShow = playerStore.getCurrentTrack() ? (
-    <Text ellipsizeMode='tail' numberOfLines={1}>{playerStore.getCurrentTrack().title}</Text>
+    <Text style={{color:Styles.secondColor}} ellipsizeMode='tail' numberOfLines={1}>{playerStore.getCurrentTrack().title}</Text>
   ) : (
       undefined
     );
@@ -88,13 +88,13 @@ const TrackPlayerComponent = () => {
           {showIcon}
           <PlayerSlider position={position} duration={duration} />
         </View>
-      </TouchableOpacity>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TimePassedText position={position} />
         <PlayForwardIcon />
         <PlayBackwardIcon />
         <TimeLeftText duration={duration} position={position} />
       </View>
+      </TouchableOpacity>
     </>
   );
 };

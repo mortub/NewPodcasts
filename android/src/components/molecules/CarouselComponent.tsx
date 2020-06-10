@@ -44,12 +44,11 @@ const CarouselComponent = ({results, pressOnAPodcast}) => {
     }
 
         return (
-          <View style={Styles.mainColor}>
+          <View style={{backgroundColor:Styles.mainColor}}>
           <SafeAreaView style={{flex: 1, paddingTop: 50, }}>
             <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>            
               <Carousel
                   layout={"default"}
-                  ref={ref => carousel = ref}
                   data={carouselItems}
                   sliderWidth={300}
                   itemWidth={250}
