@@ -31,7 +31,6 @@ export const fetchPodcast = async (url, page) => {
     var urlToFetch =  url.concat(`/page/${page}`);
      await fetch(urlToFetch)
     .then((response) => {
-        console.log('fetched url:',urlToFetch )
         return response.text()
     })
     .then((data) => {

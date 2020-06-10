@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { observer } from "mobx-react";
 //components
 import { useRootStore } from '../../contexts/RootStoreContext';
+import { Styles } from '../../theme/Styles';
 
 //an icon for adding/removing from or to the list of episodes
 const AddToListIcon = ({ track,fromMyListScreen}) => {
@@ -22,7 +23,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
 
     //the icon to show
     var showAddOrDeleteFromList = added ? (
-        <Icon name='minuscircle' size={30} style={{  flex: 1 }}
+        <Icon name='minuscircle' size={30} style={{  flex: 1 }} color={Styles.mainColor}
             onPress={() => {
                  //deleting the episode from my list
                  myListStore.DeleteTrack(track); 
@@ -30,7 +31,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
 
             }} />
     ) : (
-            <Icon name='pluscircle' size={30} style={{ flex: 1}}
+            <Icon name='pluscircle' size={30} style={{ flex: 1}} color={Styles.mainColor}
                 onPress={() => {
                     //adding the episode to my list
                     myListStore.addTrack(track);    
@@ -40,7 +41,7 @@ const AddToListIcon = ({ track,fromMyListScreen}) => {
 
         //if we are on the list screen, show only the minus icon
         var show = fromMyListScreen? (
-            <Icon name='minuscircle' size={30} style={{  flex: 1 }}
+            <Icon name='minuscircle' size={30} style={{  flex: 1 }} color={Styles.mainColor}
             onPress={() => {
                 //adding the episode to my list
                 myListStore.DeleteTrack(track);  

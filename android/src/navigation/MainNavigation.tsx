@@ -26,7 +26,7 @@ const MainNavigation = () => {
         <Tab.Navigator
           tabBarOptions={{
             showLabel: false,
-            activeTintColor:'#FFE4E1',
+            activeTintColor:Styles.mainColor,
             inactiveTintColor:'black'
 
           }}        
@@ -47,7 +47,7 @@ const MainNavigation = () => {
           position:'absolute',
           bottom: 50,
         }}>
-          <View style={Styles.mainColor}>
+          <View style={{backgroundColor:Styles.mainColor}}>
           <TrackPlayerComponent />
           </View>         
         </View>

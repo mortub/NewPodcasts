@@ -3,6 +3,8 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 //cross-app style
  export const Styles = {
+    mainColor:'#e8aec1',
+    secondColor: 'white',
     navBarLeftButton: {
       flex: 1,
       flexDirection: 'row',
@@ -42,9 +44,7 @@ const deviceHeight = Dimensions.get('window').height;
         width: deviceWidth/2,
         height: deviceHeight/3,
       },
-      mainColor:{
-        backgroundColor:'#FFE4E1',
-      },
+      
       nothingToShowText:
       {textAlign: 'center',
       paddingTop: 50, 
@@ -63,16 +63,13 @@ const deviceHeight = Dimensions.get('window').height;
       paddingLeft:20, 
       paddingTop:15, 
       fontSize:20, 
-      fontFamily:'Lobster-Regular'
+      fontFamily:'Lobster-Regular',
     },
     clickableOpacity:{
       flexDirection: 'row',
       marginTop: 10,
       paddingBottom: 20,
-      backgroundColor: '#FFE4E1',
       borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#FFE4E1'
     },
     podcastItemView: { 
       position: 'absolute',

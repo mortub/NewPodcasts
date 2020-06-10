@@ -3,7 +3,7 @@ import { TouchableOpacity, Text } from 'react-native';
 //components
 import { Styles } from '../../theme/Styles';
 import { useRootStore } from '../../contexts/RootStoreContext';
-import FlatListEpisode from '../molecules/FlatListEpisodes';
+
 import { fetchPopularPodcasts, fetchPodcasts, fetchPodcast } from '../../Api/Fetches';
 //represents the Home screen of the app
 const Home = ({ navigation }) =>{
@@ -40,14 +40,13 @@ const Home = ({ navigation }) =>{
   
     return (
         <>
-        {/* <FlatListEpisode /> */}
         <TouchableOpacity 
-        style={Styles.clickableOpacity}
+        style={{backgroundColor:Styles.mainColor,...Styles.clickableOpacity}}
          onPress ={()=> navigation.push('Search')} >
                 <Suspense fallback={<Text>Loading...</Text>}>
                     <SearchIcon />
                 </Suspense>           
-            <Text style={Styles.searchInHomeText}>Search Podcasts</Text>
+            <Text style={{color:Styles.secondColor,...Styles.searchInHomeText}}>Search Podcasts</Text>
         </TouchableOpacity>
        
         </>

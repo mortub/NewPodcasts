@@ -3,6 +3,8 @@ import { TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 //components
 import { useRootStore } from '../../contexts/RootStoreContext';
+import { Styles } from '../../theme/Styles'; 
+
 //component for the adding/removing a podcast from subscribers list
 const SubscribeIcon = ({rssUrl, title, image}) => {
     //the local store of the user's subscribers list
@@ -37,10 +39,10 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
                     flexWrap: 'wrap',
                     flexDirection: 'row',
                     marginTop: 10,
-                    backgroundColor: '#FFE4E1',
+                    backgroundColor: Styles.mainColor,
                     borderRadius: 10,
                     borderWidth: 1,
-                    borderColor: '#FFE4E1'
+                    borderColor: Styles.mainColor
                 }}
                 onPress={() => {
                     //remove the subscription to this podcast
@@ -48,8 +50,8 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
                     setAdded(false);
                 }}
             >
-                <Icon name="deleteuser" size={30} style={{ paddingTop: 10 }} />
-                <Text style={{ paddingLeft: 10, paddingTop: 15, fontFamily: 'Lobster-Regular', fontSize: 20 }}>Unsubscribe</Text>
+                <Icon name="deleteuser" size={30} style={{ paddingTop: 10 }} color={Styles.secondColor}/>
+                <Text style={{ paddingLeft: 10, paddingTop: 15, fontFamily: 'Lobster-Regular', fontSize: 20, color:Styles.secondColor }}>Unsubscribe</Text>
             </TouchableOpacity>
             <Text style={{ paddingEnd: 150 }}></Text>
         </View> 
@@ -62,10 +64,10 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
                         flexWrap: 'wrap',
                         flexDirection: 'row',
                         marginTop: 10,
-                        backgroundColor: '#FFE4E1',
+                        backgroundColor: Styles.mainColor,
                         borderRadius: 10,
                         borderWidth: 1,
-                        borderColor: '#FFE4E1'
+                        borderColor: Styles.mainColor
                     }}
                     onPress={() => {
                         //add the podcast to subscribers         
@@ -73,8 +75,8 @@ const SubscribeIcon = ({rssUrl, title, image}) => {
                         setAdded(true);
                     }}
                 >
-                    <Icon name="adduser" size={30} style={{ paddingTop: 10 }} />
-                    <Text style={{ paddingLeft: 10, paddingTop: 15, fontFamily: 'Lobster-Regular', fontSize: 20 }}>Subscribe</Text>
+                    <Icon name="adduser" size={30} style={{ paddingTop: 10 }} color={Styles.secondColor}/>
+                    <Text style={{ paddingLeft: 10, paddingTop: 15, fontFamily: 'Lobster-Regular', fontSize: 20 ,color:Styles.secondColor}}>Subscribe</Text>
                 </TouchableOpacity>
                 <Text style={{ paddingEnd: 150 }}></Text>
             </View>            
